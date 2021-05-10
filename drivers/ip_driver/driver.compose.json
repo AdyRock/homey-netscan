@@ -3,7 +3,7 @@
     "en": "IP address",
     "nl": "IP adres"
   },
-  "class": "socket",
+  "class": "sensor",
   "capabilities": [
     "ip_present"
   ],

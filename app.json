@@ -157,7 +157,7 @@
         "en": "IP address",
         "nl": "IP adres"
       },
-      "class": "socket",
+      "class": "sensor",
       "capabilities": [
         "ip_present"
       ],
@@ -217,7 +217,7 @@
         "en": "TCP port",
         "nl": "TCP poort"
       },
-      "class": "socket",
+      "class": "sensor",
       "capabilities": [
         "ip_present"
       ],
@@ -292,6 +292,7 @@
       "getable": true,
       "setable": false,
       "insights": true,
+      "uiQuickAction": true,
       "insightsTitleTrue": {
         "en": "IP is reachable",
         "de": "IP ist bereikbaar"

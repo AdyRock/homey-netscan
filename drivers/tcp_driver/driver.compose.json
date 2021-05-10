@@ -3,7 +3,7 @@
     "en": "TCP port",
     "nl": "TCP poort"
   },
-  "class": "socket",
+  "class": "sensor",
   "capabilities": [
     "ip_present"
   ],

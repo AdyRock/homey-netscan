@@ -1,35 +1,35 @@
 {
-  "id": "nl.terryhendrix.netscan",
-  "name": {
-    "en": "Net Scan",
-    "nl": "Net Scan"
-  },
-  "category": [
-    "internet",
-    "tools"
-  ],
-  "images": {
-    "large": "assets/large.png",
-    "small": "assets/small.png"
-  },
-  "description": {
-    "en": "Watch devices on your local network by scanning for TCP ports",
-    "nl": "Houdt apparaten op uw netwerk in de gaten middels een TCP poort"
-  },
-  "contributors": {
-    "developers": [
-      {
+    "id": "nl.terryhendrix.netscan",
+    "name": {
+        "en": "Net Scan",
+        "nl": "Net Scan"
+    },
+    "category": [
+        "internet",
+        "tools"
+    ],
+    "images": {
+        "large": "assets/large.png",
+        "small": "assets/small.png"
+    },
+    "description": {
+        "en": "Watch devices on your local network by scanning for TCP ports",
+        "nl": "Houdt apparaten op uw netwerk in de gaten middels een TCP poort"
+    },
+    "contributors": {
+        "developers": [
+            {
+                "name": "Terry Hendrix",
+                "email": "terryhendrix90@gmail.com"
+            }
+        ]
+    },
+    "version": "1.0.0",
+    "compatibility": ">=5.0.0",
+    "sdk": 3,
+    "brandColor": "#FF7D4B",
+    "author": {
         "name": "Terry Hendrix",
         "email": "terryhendrix90@gmail.com"
-      }
-    ]
-  },
-  "version": "1.0.0",
-  "compatibility": ">=5.0.0",
-  "sdk": 3,
-  "brandColor": "#FF7D4B",
-"author": {
-    "name": "Terry Hendrix",
-    "email": "terryhendrix90@gmail.com"
-  }
+    }
 }
