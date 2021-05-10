@@ -1,0 +1,306 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "nl.terryhendrix.netscan",
+  "name": {
+    "en": "Net Scan",
+    "nl": "Net Scan"
+  },
+  "category": [
+    "internet",
+    "tools"
+  ],
+  "images": {
+    "large": "assets/large.png",
+    "small": "assets/small.png"
+  },
+  "description": {
+    "en": "Watch devices on your local network by scanning for TCP ports",
+    "nl": "Houdt apparaten op uw netwerk in de gaten middels een TCP poort"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Terry Hendrix",
+        "email": "terryhendrix90@gmail.com"
+      }
+    ]
+  },
+  "version": "1.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "brandColor": "#FF7D4B",
+  "author": {
+    "name": "Terry Hendrix",
+    "email": "terryhendrix90@gmail.com"
+  },
+  "flow": {
+    "triggers": [
+      {
+        "id": "ip_device_came_online",
+        "title": {
+          "en": "Device came online",
+          "nl": "Apparaat kwam online"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ip_driver"
+          }
+        ]
+      },
+      {
+        "id": "ip_device_went_offline",
+        "title": {
+          "en": "Device went offline",
+          "nl": "Apparaat ging offline"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ip_driver"
+          }
+        ]
+      },
+      {
+        "id": "device_came_online",
+        "title": {
+          "en": "Device came online",
+          "nl": "Apparaat kwam online"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tcp_driver"
+          }
+        ]
+      },
+      {
+        "id": "device_went_offline",
+        "title": {
+          "en": "Device went offline",
+          "nl": "Apparaat ging offline"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tcp_driver"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "id": "ip_device_is_online",
+        "title": {
+          "en": "Device is online",
+          "nl": "Apparaat is online"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ip_driver"
+          }
+        ]
+      },
+      {
+        "id": "ip_device_is_offline",
+        "title": {
+          "en": "Device is offline",
+          "nl": "Apparaat is offline"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ip_driver"
+          }
+        ]
+      },
+      {
+        "id": "device_is_online",
+        "title": {
+          "en": "Device is online",
+          "nl": "Apparaat is online"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tcp_driver"
+          }
+        ]
+      },
+      {
+        "id": "device_is_offline",
+        "title": {
+          "en": "Device is offline",
+          "nl": "Apparaat is offline"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tcp_driver"
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "IP address",
+        "nl": "IP adres"
+      },
+      "class": "socket",
+      "capabilities": [
+        "ip_present"
+      ],
+      "images": {
+        "large": "assets/drivers/ip_driver/large.png",
+        "small": "assets/drivers/ip_driver/small.png"
+      },
+      "pair": [
+        {
+          "id": "configure_ip"
+        },
+        {
+          "id": "add_sockets",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "IP address settings",
+            "nl": "IP adres instellingen"
+          },
+          "children": [
+            {
+              "id": "host",
+              "type": "text",
+              "value": "0.0.0.0",
+              "label": {
+                "en": "IP address",
+                "nl": "IP adres"
+              }
+            },
+            {
+              "id": "host_check_interval",
+              "type": "number",
+              "value": 10,
+              "label": {
+                "en": "Check Interval"
+              }
+            },
+            {
+              "id": "host_timeout",
+              "type": "number",
+              "value": 10,
+              "label": {
+                "en": "Check Timeout"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "ip_driver"
+    },
+    {
+      "name": {
+        "en": "TCP port",
+        "nl": "TCP poort"
+      },
+      "class": "socket",
+      "capabilities": [
+        "ip_present"
+      ],
+      "images": {
+        "large": "assets/drivers/tcp_driver/large.png",
+        "small": "assets/drivers/tcp_driver/small.png"
+      },
+      "pair": [
+        {
+          "id": "configure_ip"
+        },
+        {
+          "id": "add_sockets",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Port scan settings",
+            "nl": "Port scan instellingen"
+          },
+          "children": [
+            {
+              "id": "host",
+              "type": "text",
+              "value": "0.0.0.0",
+              "label": {
+                "en": "IP address",
+                "nl": "IP adres"
+              }
+            },
+            {
+              "id": "tcp_port",
+              "type": "number",
+              "value": 9090,
+              "label": {
+                "en": "TCP port",
+                "nl": "TCP poort"
+              }
+            },
+            {
+              "id": "host_check_interval",
+              "type": "number",
+              "value": 10,
+              "label": {
+                "en": "Check Interval"
+              }
+            },
+            {
+              "id": "host_timeout",
+              "type": "number",
+              "value": 10,
+              "label": {
+                "en": "Check Timeout"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "tcp_driver"
+    }
+  ],
+  "capabilities": {
+    "ip_present": {
+      "type": "boolean",
+      "title": {
+        "en": "IP reachable",
+        "nl": "IP bereikbaar"
+      },
+      "getable": true,
+      "setable": false,
+      "insights": true,
+      "insightsTitleTrue": {
+        "en": "IP is reachable",
+        "de": "IP ist bereikbaar"
+      },
+      "insightsTitleFalse": {
+        "en": "IP not reachable",
+        "de": "IP nicht bereikbaar"
+      },
+      "icon": "/assets/sonar.svg"
+    }
+  }
+}

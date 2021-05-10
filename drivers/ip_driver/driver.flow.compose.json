@@ -1,0 +1,38 @@
+{
+    "triggers": [
+        {
+            "id": "ip_device_came_online",
+            "title": {
+                "en": "Device came online",
+                "nl": "Apparaat kwam online"
+            },
+            "args": []
+        },
+        {
+            "id": "ip_device_went_offline",
+            "title": {
+                "en": "Device went offline",
+                "nl": "Apparaat ging offline"
+            },
+            "args": []
+        }
+    ],
+    "conditions": [
+        {
+            "id": "ip_device_is_online",
+            "title": {
+                "en": "Device is online",
+                "nl": "Apparaat is online"
+            },
+            "args": []
+        },
+        {
+            "id": "ip_device_is_offline",
+            "title": {
+                "en": "Device is offline",
+                "nl": "Apparaat is offline"
+            },
+            "args": []
+        }
+    ]
+}

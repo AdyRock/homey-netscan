@@ -1,0 +1,68 @@
+{
+  "name": {
+    "en": "TCP port",
+    "nl": "TCP poort"
+  },
+  "class": "socket",
+  "capabilities": [
+    "ip_present"
+  ],
+  "images": {
+    "large": "assets/drivers/tcp_driver/large.png",
+    "small": "assets/drivers/tcp_driver/small.png"
+  },
+  "pair": [
+    {
+      "id": "configure_ip"
+    },
+    {
+      "id": "add_sockets",
+      "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Port scan settings",
+        "nl": "Port scan instellingen"
+      },
+      "children": [
+        {
+          "id": "host",
+          "type": "text",
+          "value": "0.0.0.0",
+          "label": {
+            "en": "IP address",
+            "nl": "IP adres"
+          }
+        },
+        {
+          "id": "tcp_port",
+          "type": "number",
+          "value": 9090,
+          "label": {
+            "en": "TCP port",
+            "nl": "TCP poort"
+          }
+        },
+        {
+            "id": "host_check_interval",
+            "type": "number",
+            "value": 10,
+            "label": {
+                "en": "Check Interval"
+            }
+        },
+        {
+            "id": "host_timeout",
+            "type": "number",
+            "value": 10,
+            "label": {
+                "en": "Check Timeout"
+            }
+        }
+      ]
+    }
+  ]
+}
