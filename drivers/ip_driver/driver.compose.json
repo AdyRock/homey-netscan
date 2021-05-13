@@ -40,7 +40,7 @@
         {
             "id": "host_check_interval",
             "type": "number",
-            "value": 10,
+            "value": 15,
             "label": {
                 "en": "Check Interval"
             }

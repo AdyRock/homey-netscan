@@ -8,20 +8,23 @@ class tcpDevice extends Homey.Device
 {
     async onInit()
     {
+        console.info("Booting TCP device ", this.getName());
+
         this.state = this.getCapabilityValue('ip_present');
         this.host = this.getSetting( 'host' );
         this.tcp_port = this.getSetting( 'tcp_port' );
+
         this.checkInterval = this.getSetting('host_check_interval');
         if (!this.checkInterval)
         {
-            this.checkInterval = 5;
+            this.checkInterval = 15;
         }
         this.checkInterval = 1000 * parseInt(this.checkInterval);
 
         this.hostTimeout = this.getSetting('host_timeout'); 
         if (!this.hostTimeout)
         {
-            this.hostTimeout = 2;
+            this.hostTimeout = 10;
         }
         this.hostTimeout = 1000 * parseInt(this.hostTimeout);
 
@@ -55,9 +58,9 @@ class tcpDevice extends Homey.Device
         if ( changedKeys.indexOf( "host_check_interval" ) >= 0 )
         {
             this.checkInterval = newSettings.host_check_interval;
-            if (!this.checkInterval)
+            if (!this.checkInterval || (this.checkInterval < 15))
             {
-                this.checkInterval = 5;
+                this.checkInterval = 15;
             }
             this.checkInterval = 1000 * parseInt(this.checkInterval);
         }
@@ -65,9 +68,9 @@ class tcpDevice extends Homey.Device
         if ( changedKeys.indexOf( "host_timeout" ) >= 0 )
         {
             this.hostTimeout = newSettings.host_timeout;
-            if (!this.hostTimeout)
+            if (!this.hostTimeout || (this.hostTimeout < 10))
             {
-                this.hostTimeout = 2;
+                this.hostTimeout = 10;
             }
             this.hostTimeout = 1000 * parseInt(this.hostTimeout);
         }
@@ -80,18 +83,23 @@ class tcpDevice extends Homey.Device
     async scanDevice()
     {
         const _this = this;
+        console.info("Checking TCP device ", this.getName());
 
         _this.client = new net.Socket();
 
-        _this.cancelCheck = setTimeout(function() {
+        _this.cancelCheck = setTimeout(function()
+        {
+            console.info("TCP device Timeout", _this.getName());
             _this.state = false;
             _this.client.destroy();
         }, _this.hostTimeout);
 
-        _this.client.on('error', function (err) {
+        _this.client.on('error', function(err)
+        {
             clearTimeout(_this.cancelCheck);
-            if (_this.state)
+            if ((_this.state === null) || _this.state)
             {
+                console.info("TCP device Off line ", _this.getName());
                 _this.state = false;
                 _this.setCapabilityValue('ip_present', false);
 
@@ -100,16 +108,17 @@ class tcpDevice extends Homey.Device
             }
 
             _this.client.destroy();
-            setTimeout(_this.scanDevice, _this.checkInterval);
+            setTimeout(_this.scanDevice, _this.checkInterval * 2);
         });
 
-
-        _this.client.connect(this.tcp_port, this.host, function () {
+        _this.client.connect(this.tcp_port, this.host, function()
+        {
             clearTimeout(_this.cancelCheck);
             _this.client.destroy();
 
             if (!_this.state)
             {
+                console.info("TCP device On Line ", _this.getName());
                 _this.state = true;
                 _this.setCapabilityValue('ip_present', true);
 
@@ -120,6 +129,11 @@ class tcpDevice extends Homey.Device
             _this.client.destroy();
             setTimeout(_this.scanDevice, _this.checkInterval);
         });
+    }
+
+    async slowDown()
+    {
+        this.checkInterval *= 2;   
     }
     
 }

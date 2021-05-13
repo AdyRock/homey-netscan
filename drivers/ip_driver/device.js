@@ -10,20 +10,22 @@ class ipDevice extends Homey.Device
 {
     async onInit()
     {
+        console.info("Booting TCP device ", this.getName());
+
         this.state = this.getCapabilityValue('ip_present');
         this.host = this.getSetting('host');
 
         this.checkInterval = this.getSetting('host_check_interval');
-        if (!this.checkInterval)
+        if (!this.checkInterval || (this.checkInterval < 15))
         {
-            this.checkInterval = 5;
+            this.checkInterval = 15;
         }
         this.checkInterval = 1000 * parseInt(this.checkInterval);
 
         this.hostTimeout = this.getSetting('host_timeout'); 
-        if (!this.hostTimeout)
+        if (!this.hostTimeout || (this.hostTimeout < 10))
         {
-            this.hostTimeout = 2;
+            this.hostTimeout = 10;
         }
         this.hostTimeout = 1000 * parseInt(this.hostTimeout);
 
@@ -46,9 +48,9 @@ class ipDevice extends Homey.Device
         if ( changedKeys.indexOf( "host_check_interval" ) >= 0 )
         {
             this.checkInterval = newSettings.host_check_interval;
-            if (!this.checkInterval)
+            if (!this.checkInterval || (this.checkInterval < 15))
             {
-                this.checkInterval = 5;
+                this.checkInterval = 15;
             }
             this.checkInterval = 1000 * parseInt(this.checkInterval);
         }
@@ -56,9 +58,9 @@ class ipDevice extends Homey.Device
         if ( changedKeys.indexOf( "host_timeout" ) >= 0 )
         {
             this.hostTimeout = newSettings.host_timeout;
-            if (!this.hostTimeout)
+            if (!this.hostTimeout || (this.hostTimeout < 10))
             {
-                this.hostTimeout = 2;
+                this.hostTimeout = 10;
             }
             this.hostTimeout = 1000 * parseInt(this.hostTimeout);
         }
@@ -71,11 +73,13 @@ class ipDevice extends Homey.Device
     async scanDevice()
     {
         const _this = this;
+        console.info("Checking IP device", _this.getName());
 
         _this.client = new net.Socket();
 
         _this.cancelCheck = setTimeout(function()
         {
+            console.info("IP device Timeout ", _this.getName());
             handleOffline();
             _this.client.destroy();
         }, _this.hostTimeout);
@@ -87,6 +91,7 @@ class ipDevice extends Homey.Device
 
             if (!_this.state)
             {
+                console.info("IP device Online ", _this.getName());
                 _this.state = true;
                 _this.setCapabilityValue('ip_present', true);
 
@@ -100,8 +105,9 @@ class ipDevice extends Homey.Device
         var handleOffline = function()
         {
             clearTimeout(_this.cancelCheck);
-            if (_this.state)
+            if ((_this.state === null) || _this.state)
             {
+                console.info("IP device Off line ", _this.getName());
                 _this.state = false;
                 _this.setCapabilityValue('ip_present', false);
 
@@ -124,11 +130,11 @@ class ipDevice extends Homey.Device
             }
             else if (err && err.errno)
             {
-                console.error("ICMP driver can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.errno);
+                console.error("IP driver can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.errno);
             }
             else
             {
-                console.error("ICMP driver can't handle " + err);
+                console.error("IP driver can't handle " + err);
             }
             _this.client.destroy();
         });
@@ -139,5 +145,9 @@ class ipDevice extends Homey.Device
         });
     }
 
+    async slowDown()
+    {
+        this.checkInterval *= 2;   
+    }
 }
 module.exports = ipDevice;
