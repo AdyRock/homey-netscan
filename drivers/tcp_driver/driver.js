@@ -26,14 +26,14 @@ class tcpDevice extends Homey.Driver
         this.device_went_offline_trigger = this.homey.flow.getDeviceTriggerCard('device_went_offline');
     }
 
-    ip_device_came_online(device, tokens, state)
+    device_came_online(device, tokens, state)
     {
         this.ip_device_came_online_trigger.trigger(device, tokens, state)
             .then(this.log)
             .catch(this.error);
     }
 
-    ip_device_went_offline(device, tokens, state)
+    device_went_offline(device, tokens, state)
     {
         this.ip_device_went_offline_trigger.trigger(device, tokens, state)
             .then(this.log)

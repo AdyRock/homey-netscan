@@ -96,7 +96,7 @@ class ipDevice extends Homey.Device
                 _this.setCapabilityValue('ip_present', true);
 
                 // Trigger the online action
-                _this.driver.ip_device_came_online(_this);
+                _this.driver.device_came_online(_this);
             }
 
             setTimeout(_this.scanDevice, _this.checkInterval);
@@ -112,7 +112,7 @@ class ipDevice extends Homey.Device
                 _this.setCapabilityValue('ip_present', false);
 
                 // Trigger the offline action
-                _this.driver.ip_device_went_offline(_this);
+                _this.driver.device_went_offline(_this);
             }
 
             setTimeout(_this.scanDevice, _this.checkInterval);
