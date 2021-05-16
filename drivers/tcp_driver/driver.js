@@ -4,7 +4,7 @@ const Homey = require( 'homey' );
 var net = require("net");
 
 // the `init` method is called when your driver is loaded for the first time
-class tcpDevice extends Homey.Driver
+class tcpDriver extends Homey.Driver
 {
     async onInit()
     {
@@ -28,14 +28,14 @@ class tcpDevice extends Homey.Driver
 
     device_came_online(device, tokens, state)
     {
-        this.ip_device_came_online_trigger.trigger(device, tokens, state)
+        this.device_came_online_trigger.trigger(device, tokens, state)
             .then(this.log)
             .catch(this.error);
     }
 
     device_went_offline(device, tokens, state)
     {
-        this.ip_device_went_offline_trigger.trigger(device, tokens, state)
+        this.device_went_offline_trigger.trigger(device, tokens, state)
             .then(this.log)
             .catch(this.error);
     }
@@ -48,5 +48,5 @@ class tcpDevice extends Homey.Driver
     }
 
 }
-module.exports = tcpDevice;
+module.exports = tcpDriver;
 

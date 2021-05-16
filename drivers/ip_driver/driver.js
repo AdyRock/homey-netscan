@@ -1,13 +1,13 @@
 "use strict";
 
-// The ICMP driver works by connecting to a port and checking which error response one gets.
+// The IP driver works by connecting to a port and checking which error response one gets.
 // We have to assume a port is closed, this assumption is corrected if a device appears to have the port open anyway.
 
 // https://www.tutorialspoint.com/nodejs/nodejs_net_module.htm
 var net = require("net");
 const Homey = require('homey');
 
-class netScanDriver extends Homey.Driver
+class ipDriver extends Homey.Driver
 {
     // the `init` method is called when your driver is loaded for the first time
     async onInit()
@@ -53,7 +53,7 @@ class netScanDriver extends Homey.Driver
 
 
 }
-module.exports = netScanDriver;
+module.exports = ipDriver;
 
 
 
