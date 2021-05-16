@@ -65,7 +65,8 @@ class ipDevice extends Homey.Device
             this.hostTimeout = 1000 * parseInt(this.hostTimeout);
         }
 
-        clearTimeout(this.cancelCheck);
+        this.homey.clearTimeout(this.checkTimer);
+        this.homey.clearTimeout(this.cancelCheck);
         this.client.destroy();
         this.scanDevice();
     }
@@ -73,11 +74,11 @@ class ipDevice extends Homey.Device
     async scanDevice()
     {
         const _this = this;
-        console.info("Checking IP device", _this.getName());
+        console.info("Checking IP device", _this.getName(), " - ", _this.host);
 
         _this.client = new net.Socket();
 
-        _this.cancelCheck = setTimeout(function()
+        _this.cancelCheck = this.homey.setTimeout(function()
         {
             console.info("IP device Timeout ", _this.getName());
             handleOffline();
@@ -86,12 +87,12 @@ class ipDevice extends Homey.Device
 
         var handleOnline = function()
         {
-            clearTimeout(_this.cancelCheck);
+            _this.homey.clearTimeout(_this.cancelCheck);
             _this.client.destroy();
 
             if (!_this.state)
             {
-                console.info("IP device Online ", _this.getName());
+                console.info("IP device came Online ", _this.getName(), " - ", _this.host);
                 _this.state = true;
                 _this.setCapabilityValue('ip_present', true);
 
@@ -99,15 +100,15 @@ class ipDevice extends Homey.Device
                 _this.driver.device_came_online(_this);
             }
 
-            setTimeout(_this.scanDevice, _this.checkInterval);
+            _this.checkTimer = _this.homey.setTimeout(_this.scanDevice, _this.checkInterval);
         };
 
         var handleOffline = function()
         {
-            clearTimeout(_this.cancelCheck);
+            _this.homey.clearTimeout(_this.cancelCheck);
             if ((_this.state === null) || _this.state)
             {
-                console.info("IP device Off line ", _this.getName());
+                console.info("IP device went Off line ", _this.getName(), " - ", _this.host);
                 _this.state = false;
                 _this.setCapabilityValue('ip_present', false);
 
@@ -115,7 +116,7 @@ class ipDevice extends Homey.Device
                 _this.driver.device_went_offline(_this);
             }
 
-            setTimeout(_this.scanDevice, _this.checkInterval);
+            _this.checkTimer = _this.homey.setTimeout(_this.scanDevice, _this.checkInterval);
         };
 
         _this.client.on('error', function(err)

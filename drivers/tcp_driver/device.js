@@ -12,7 +12,7 @@ class tcpDevice extends Homey.Device
 
         this.state = this.getCapabilityValue('ip_present');
         this.host = this.getSetting( 'host' );
-        this.tcp_port = this.getSetting( 'tcp_port' );
+        this.port = this.getSetting( 'tcp_port' );
 
         this.checkInterval = this.getSetting('host_check_interval');
         if (!this.checkInterval)
@@ -50,9 +50,9 @@ class tcpDevice extends Homey.Device
             this.host = newSettings.host;
         }
 
-        if ( changedKeys.indexOf( "port" ) >= 0 )
+        if ( changedKeys.indexOf( "tcp_port" ) >= 0 )
         {
-            this.port = newSettings.port;
+            this.port = newSettings.tcp_port;
         }
 
         if ( changedKeys.indexOf( "host_check_interval" ) >= 0 )
@@ -75,7 +75,8 @@ class tcpDevice extends Homey.Device
             this.hostTimeout = 1000 * parseInt(this.hostTimeout);
         }
 
-        clearTimeout(this.cancelCheck);
+        this.homey.clearTimeout(this.checkTimer);
+        this.homey.clearTimeout(this.cancelCheck);
         this.client.destroy();
         this.scanDevice();
     }
@@ -83,11 +84,11 @@ class tcpDevice extends Homey.Device
     async scanDevice()
     {
         const _this = this;
-        console.info("Checking TCP device ", this.getName());
+        console.info("Checking TCP device ", this.getName(), " - ", _this.host, ":", _this.port);
 
         _this.client = new net.Socket();
 
-        _this.cancelCheck = setTimeout(function()
+        _this.cancelCheck = _this.homey.setTimeout(function()
         {
             console.info("TCP device Timeout", _this.getName());
             _this.state = false;
@@ -96,38 +97,39 @@ class tcpDevice extends Homey.Device
 
         _this.client.on('error', function(err)
         {
-            clearTimeout(_this.cancelCheck);
+            _this.homey.clearTimeout(_this.cancelCheck);
             if ((_this.state === null) || _this.state)
             {
-                console.info("TCP device Off line ", _this.getName());
+                console.info("TCP device went Off line ", _this.getName(), " - ", _this.host, ":", _this.port);
                 _this.state = false;
                 _this.setCapabilityValue('ip_present', false);
 
                 // Trigger the offline action
-                _this.driver.device_came_online(_this);
+                _this.driver.device_went_offline(_this);
+                console.info("TCP device online", _this.getName());
             }
 
             _this.client.destroy();
-            setTimeout(_this.scanDevice, _this.checkInterval * 2);
+            _this.checkTimer = _this.homey.setTimeout(_this.scanDevice, _this.checkInterval * 2);
         });
 
-        _this.client.connect(this.tcp_port, this.host, function()
+        _this.client.connect(_this.port, _this.host, function()
         {
-            clearTimeout(_this.cancelCheck);
+            _this.homey.clearTimeout(_this.cancelCheck);
             _this.client.destroy();
 
             if (!_this.state)
             {
-                console.info("TCP device On Line ", _this.getName());
+                console.info("TCP device came On Line ", _this.getName(), " - ", _this.host, ":", _this.port);
                 _this.state = true;
                 _this.setCapabilityValue('ip_present', true);
 
                 // Trigger the online action
-                _this.driver.device_went_offline(_this);
+                _this.driver.device_came_online(_this);
             }
 
             _this.client.destroy();
-            setTimeout(_this.scanDevice, _this.checkInterval);
+            _this.checkTimer = _this.homey.setTimeout(_this.scanDevice, _this.checkInterval);
         });
     }
 

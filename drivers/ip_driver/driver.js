@@ -32,17 +32,17 @@ class ipDriver extends Homey.Driver
 
     device_came_online(device, tokens, state)
     {
-        this.ip_device_came_online_trigger.trigger(device, tokens, state)
-            .then(this.log)
-            .catch(this.error);
+        this.ip_device_came_online_trigger
+        .trigger(device, tokens, state)
+        .catch(this.error);
     }
 
     device_went_offline(device, tokens, state)
     {
-        this.ip_device_went_offline_trigger.trigger(device, tokens, state)
-            .then(this.log)
-            .catch(this.error);
-    }
+        this.ip_device_went_offline_trigger
+        .trigger(device, tokens, state)
+        .catch(this.error);
+}
 
     // the `pair` method is called when a user start pairing
     async onPairListDevices()
