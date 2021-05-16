@@ -273,7 +273,8 @@
               "label": {
                 "en": "TCP port",
                 "nl": "TCP poort"
-              }
+              },
+              "max": 65535
             },
             {
               "id": "host_check_interval",
