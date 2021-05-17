@@ -12,7 +12,13 @@ class ipDevice extends Homey.Device
     {
         console.info("Booting TCP device ", this.getName());
 
-        this.state = this.getCapabilityValue('ip_present');
+        if (this.hasCapability('ip_present'))
+        {
+            this.addCapability('alarm_offline');
+            this.removeCapability('ip_present');
+        }
+
+        this.offline = this.getCapabilityValue('alarm_offline');
         this.host = this.getSetting('host');
 
         this.checkInterval = this.getSetting('host_check_interval');
@@ -90,11 +96,11 @@ class ipDevice extends Homey.Device
             _this.homey.clearTimeout(_this.cancelCheck);
             _this.client.destroy();
 
-            if (!_this.state)
+            if ((_this.offline === null) || _this.offline)
             {
                 console.info("IP device came Online ", _this.getName(), " - ", _this.host);
-                _this.state = true;
-                _this.setCapabilityValue('ip_present', true);
+                _this.offline = false;
+                _this.setCapabilityValue('alarm_offline', false);
 
                 // Trigger the online action
                 _this.driver.device_came_online(_this);
@@ -106,11 +112,11 @@ class ipDevice extends Homey.Device
         var handleOffline = function()
         {
             _this.homey.clearTimeout(_this.cancelCheck);
-            if ((_this.state === null) || _this.state)
+            if ((_this.offline === null) || !_this.offline)
             {
                 console.info("IP device went Off line ", _this.getName(), " - ", _this.host);
-                _this.state = false;
-                _this.setCapabilityValue('ip_present', false);
+                _this.offline = true;
+                _this.setCapabilityValue('alarm_offline', true);
 
                 // Trigger the offline action
                 _this.driver.device_went_offline(_this);

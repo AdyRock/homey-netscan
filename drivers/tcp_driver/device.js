@@ -9,8 +9,13 @@ class tcpDevice extends Homey.Device
     async onInit()
     {
         console.info("Booting TCP device ", this.getName());
+        if (this.hasCapability('ip_present'))
+        {
+            this.addCapability('alarm_offline');
+            this.removeCapability('ip_present');
+        }
 
-        this.state = this.getCapabilityValue('ip_present');
+        this.offline = this.getCapabilityValue('alarm_offline');
         this.host = this.getSetting( 'host' );
         this.port = this.getSetting( 'tcp_port' );
 
@@ -91,18 +96,18 @@ class tcpDevice extends Homey.Device
         _this.cancelCheck = _this.homey.setTimeout(function()
         {
             console.info("TCP device Timeout", _this.getName());
-            _this.state = false;
+            _this.offline = true;
             _this.client.destroy();
         }, _this.hostTimeout);
 
         _this.client.on('error', function(err)
         {
             _this.homey.clearTimeout(_this.cancelCheck);
-            if ((_this.state === null) || _this.state)
+            if ((_this.offline === null) || !_this.offline)
             {
                 console.info("TCP device went Off line ", _this.getName(), " - ", _this.host, ":", _this.port);
-                _this.state = false;
-                _this.setCapabilityValue('ip_present', false);
+                _this.offline = true;
+                _this.setCapabilityValue('alarm_offline', true);
 
                 // Trigger the offline action
                 _this.driver.device_went_offline(_this);
@@ -118,11 +123,11 @@ class tcpDevice extends Homey.Device
             _this.homey.clearTimeout(_this.cancelCheck);
             _this.client.destroy();
 
-            if (!_this.state)
+            if (_this.offline)
             {
                 console.info("TCP device came On Line ", _this.getName(), " - ", _this.host, ":", _this.port);
-                _this.state = true;
-                _this.setCapabilityValue('ip_present', true);
+                _this.offline = false;
+                _this.setCapabilityValue('alarm_offline', false);
 
                 // Trigger the online action
                 _this.driver.device_came_online(_this);

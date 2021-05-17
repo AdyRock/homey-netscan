@@ -5,7 +5,7 @@
   },
   "class": "sensor",
   "capabilities": [
-    "ip_present"
+    "alarm_offline"
   ],
   "images": {
     "large": "assets/drivers/tcp_driver/large.png",

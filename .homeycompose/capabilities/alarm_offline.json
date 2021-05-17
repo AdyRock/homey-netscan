@@ -1,18 +1,16 @@
 {
     "type": "boolean",
     "title": {
-        "en": "IP reachable",
-        "nl": "IP bereikbaar"
+        "en": "Device Offline"
     },
     "getable": true,
     "setable": false,
     "insights": true,
-    "uiQuickAction": true,
-    "insightsTitleTrue": {
+    "insightsTitleFalse": {
         "en": "IP is reachable",
         "de": "IP ist bereikbaar"
     },
-    "insightsTitleFalse": {
+    "insightsTitleTrue": {
         "en": "IP not reachable",
         "de": "IP nicht bereikbaar"
     },

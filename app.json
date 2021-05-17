@@ -29,7 +29,7 @@
       }
     ]
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -174,7 +174,7 @@
       },
       "class": "sensor",
       "capabilities": [
-        "ip_present"
+        "alarm_offline"
       ],
       "images": {
         "large": "assets/drivers/ip_driver/large.png",
@@ -234,7 +234,7 @@
       },
       "class": "sensor",
       "capabilities": [
-        "ip_present"
+        "alarm_offline"
       ],
       "images": {
         "large": "assets/drivers/tcp_driver/large.png",
@@ -299,21 +299,19 @@
     }
   ],
   "capabilities": {
-    "ip_present": {
+    "alarm_offline": {
       "type": "boolean",
       "title": {
-        "en": "IP reachable",
-        "nl": "IP bereikbaar"
+        "en": "Device Offline"
       },
       "getable": true,
       "setable": false,
       "insights": true,
-      "uiQuickAction": true,
-      "insightsTitleTrue": {
+      "insightsTitleFalse": {
         "en": "IP is reachable",
         "de": "IP ist bereikbaar"
       },
-      "insightsTitleFalse": {
+      "insightsTitleTrue": {
         "en": "IP not reachable",
         "de": "IP nicht bereikbaar"
       },
