@@ -20,14 +20,14 @@ class tcpDevice extends Homey.Device
         this.port = this.getSetting( 'tcp_port' );
 
         this.checkInterval = this.getSetting('host_check_interval');
-        if (!this.checkInterval)
+        if (!this.checkInterval || (this.checkInterval < 15))
         {
             this.checkInterval = 15;
         }
-        this.checkInterval = 1000 * parseInt(this.checkInterval);
+        this.checkInterval = 1000 * this.checkInterval;
 
         this.hostTimeout = this.getSetting('host_timeout'); 
-        if (!this.hostTimeout)
+        if (!this.hostTimeout || (this.hostTimeout < 10))
         {
             this.hostTimeout = 10;
         }
@@ -89,43 +89,25 @@ class tcpDevice extends Homey.Device
     async scanDevice()
     {
         const _this = this;
-        console.info("Checking TCP device ", this.getName(), " - ", _this.host, ":", _this.port);
+        console.info("Checking TCP device ", _this.getName(), " - ", _this.host, ":", _this.port);
 
         _this.client = new net.Socket();
 
         _this.cancelCheck = _this.homey.setTimeout(function()
         {
             console.info("TCP device Timeout", _this.getName());
-            _this.offline = true;
+            handleOffline();
             _this.client.destroy();
         }, _this.hostTimeout);
 
-        _this.client.on('error', function(err)
-        {
-            _this.homey.clearTimeout(_this.cancelCheck);
-            if ((_this.offline === null) || !_this.offline)
-            {
-                console.info("TCP device went Off line ", _this.getName(), " - ", _this.host, ":", _this.port);
-                _this.offline = true;
-                _this.setCapabilityValue('alarm_offline', true);
-
-                // Trigger the offline action
-                _this.driver.device_went_offline(_this);
-                console.info("TCP device online", _this.getName());
-            }
-
-            _this.client.destroy();
-            _this.checkTimer = _this.homey.setTimeout(_this.scanDevice, _this.checkInterval * 2);
-        });
-
-        _this.client.connect(_this.port, _this.host, function()
+        var handleOnline = function()
         {
             _this.homey.clearTimeout(_this.cancelCheck);
             _this.client.destroy();
 
-            if (_this.offline)
+            if ((_this.offline === null) || _this.offline)
             {
-                console.info("TCP device came On Line ", _this.getName(), " - ", _this.host, ":", _this.port);
+                console.info("TCP device came Online ", _this.getName(), " - ", _this.host);
                 _this.offline = false;
                 _this.setCapabilityValue('alarm_offline', false);
 
@@ -133,8 +115,49 @@ class tcpDevice extends Homey.Device
                 _this.driver.device_came_online(_this);
             }
 
-            _this.client.destroy();
             _this.checkTimer = _this.homey.setTimeout(_this.scanDevice, _this.checkInterval);
+        };
+
+        var handleOffline = function()
+        {
+            _this.homey.clearTimeout(_this.cancelCheck);
+            if ((_this.offline === null) || !_this.offline)
+            {
+                console.info("TCP device went Off line ", _this.getName(), " - ", _this.host);
+                _this.offline = true;
+                _this.setCapabilityValue('alarm_offline', true);
+
+                // Trigger the offline action
+                _this.driver.device_went_offline(_this);
+            }
+
+            _this.checkTimer = _this.homey.setTimeout(_this.scanDevice, _this.checkInterval);
+        };
+
+        _this.client.on('error', function(err)
+        {
+            if (err && err.errno && err.errno == "ECONNREFUSED")
+            {
+                handleOnline();
+            }
+            else if (err && err.errno && err.errno == "EHOSTUNREACH")
+            {
+                handleOffline();
+            }
+            else if (err && err.errno)
+            {
+                console.error("IP driver can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.errno);
+            }
+            else
+            {
+                console.error("IP driver can't handle " + err);
+            }
+            _this.client.destroy();
+        });
+
+        _this.client.connect(_this.port, _this.host, function()
+        {
+            handleOnline();
         });
     }
 
