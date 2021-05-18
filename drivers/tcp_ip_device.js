@@ -79,22 +79,33 @@ class TcpIpDevice extends Homey.Device
             this.hostTimeout = 1000 * parseInt(this.hostTimeout);
         }
 
-        this.homey.clearTimeout(this.checkTimer);
-        this.homey.clearTimeout(this.cancelCheck);
-        this.client.destroy();
-        this.scanDevice();
+        if (this.cancelCheck)
+        {
+            // If the timeout timer is running then a check is in progress so cancel it now
+            this.homey.clearTimeout(this.cancelCheck);
+            this.client.destroy();
+        }
+
+        if (this.checkTimer)
+        {
+            // If the timer is running then cancel it and start the scan immediately 
+            this.homey.clearTimeout(this.checkTimer);
+            this.scanDevice();
+        }
     }
 
     async scanDevice()
     {
+        this.checkTimer = null;
         const _this = this;
-        console.info("Checking TCP device ", _this.getName(), " - ", _this.host, ":", _this.port);
+        console.info("Checking device ", _this.getName(), " - ", _this.host, ":", _this.port);
 
         _this.client = new net.Socket();
 
         _this.cancelCheck = _this.homey.setTimeout(function()
         {
-            console.info("TCP device Timeout", _this.getName());
+            _this.cancelCheck = null;
+            console.info("Device Timeout", _this.getName());
             handleOffline();
             _this.client.destroy();
         }, _this.hostTimeout);
@@ -102,11 +113,12 @@ class TcpIpDevice extends Homey.Device
         var handleOnline = function()
         {
             _this.homey.clearTimeout(_this.cancelCheck);
+            _this.cancelCheck = null;
             _this.client.destroy();
 
             if ((_this.offline === null) || _this.offline)
             {
-                console.info("TCP device came Online ", _this.getName(), " - ", _this.host);
+                console.info("Device came Online ", _this.getName(), " - ", _this.host);
                 _this.offline = false;
                 _this.setCapabilityValue('alarm_offline', false);
 
@@ -120,9 +132,10 @@ class TcpIpDevice extends Homey.Device
         var handleOffline = function()
         {
             _this.homey.clearTimeout(_this.cancelCheck);
+            _this.cancelCheck = null;
             if ((_this.offline === null) || !_this.offline)
             {
-                console.info("TCP device went Off line ", _this.getName(), " - ", _this.host);
+                console.info("Device went Off line ", _this.getName(), " - ", _this.host);
                 _this.offline = true;
                 _this.setCapabilityValue('alarm_offline', true);
 
@@ -137,7 +150,14 @@ class TcpIpDevice extends Homey.Device
         {
             if (err && err.errno && err.errno == "ECONNREFUSED")
             {
-                handleOnline();
+                if (_this.port === null)
+                {
+                    handleOnline();
+                }
+                else
+                {
+                    handleOffline();
+                }
             }
             else if (err && err.errno && err.errno == "EHOSTUNREACH")
             {
@@ -145,16 +165,16 @@ class TcpIpDevice extends Homey.Device
             }
             else if (err && err.errno)
             {
-                console.error("IP driver can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.errno);
+                console.error("Device can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.errno);
             }
             else
             {
-                console.error("IP driver can't handle " + err);
+                console.error("Device can't handle " + err);
             }
             _this.client.destroy();
         });
 
-        _this.client.connect(_this.port, _this.host, function()
+        _this.client.connect(_this.port ? _this.port : 1, _this.host, function()
         {
             handleOnline();
         });
@@ -163,6 +183,7 @@ class TcpIpDevice extends Homey.Device
     async slowDown()
     {
         this.checkInterval *= 2;   
+        console.error("Device slow down " + this.checkInterval);
     }
     
 }
