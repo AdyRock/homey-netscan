@@ -153,6 +153,12 @@ class TcpIpDevice extends Homey.Device
             _this.checkTimer = _this.homey.setTimeout(_this.scanDevice, _this.checkInterval);
         };
 
+        _this.client.on('data', function(data)
+        {
+            console.log(data);
+            _this.client.end();
+        });
+
         _this.client.on('error', function(err)
         {
             if (err && err.errno && err.errno == "ECONNREFUSED")
