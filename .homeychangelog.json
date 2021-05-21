@@ -7,5 +7,8 @@
   },
   "1.0.2": {
     "en": "Changing the port number no longer requires a restart of the app to take effect. The online and offline flow cards where reversed for the TCP device."
+  },
+  "2.0.0": {
+    "en": "Changed the App ID so it can be published in the Athom store. Changed the capability to an alarm to conform with guidelines"
   }
 }
