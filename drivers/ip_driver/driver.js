@@ -17,13 +17,13 @@ class ipDriver extends Homey.Driver
         let ip_device_is_online_condition = this.homey.flow.getConditionCard('ip_device_is_online');
         ip_device_is_online_condition.registerRunListener(async (args, state) =>
         {
-            return args.device.state; // true or false
+            return !args.device.offline; // true or false
         });
 
         let ip_device_is_offline_condition = this.homey.flow.getConditionCard('ip_device_is_offline');
         ip_device_is_offline_condition.registerRunListener(async (args, state) =>
         {
-            return !args.device.state; // true or false
+            return args.device.offline; // true or false
         });
 
         this.ip_device_came_online_trigger = this.homey.flow.getDeviceTriggerCard('ip_device_came_online');

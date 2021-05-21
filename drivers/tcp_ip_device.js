@@ -98,7 +98,14 @@ class TcpIpDevice extends Homey.Device
     {
         this.checkTimer = null;
         const _this = this;
-        console.info("Checking device ", _this.getName(), " - ", _this.host, ":", _this.port);
+        if (_this.port === null)
+        {
+            console.info("Checking IP device ", _this.getName(), " - ", _this.host);
+        }
+        else
+        {
+            console.info("Checking TCP device ", _this.getName(), " - ", _this.host, "port", _this.port);
+        }
 
         _this.client = new net.Socket();
 

@@ -13,13 +13,13 @@ class tcpDriver extends Homey.Driver
         let device_is_online_condition = this.homey.flow.getConditionCard('device_is_online');
         device_is_online_condition.registerRunListener(async (args, state) =>
         {
-            return args.device.state; // true or false
+            return !args.device.offline; // true or false
         });
 
         let device_is_offline_condition = this.homey.flow.getConditionCard('device_is_offline');
         device_is_offline_condition.registerRunListener(async (args, state) =>
         {
-            return !args.device.state; // true or false
+            return args.device.offline; // true or false
         });
 
         this.device_came_online_trigger = this.homey.flow.getDeviceTriggerCard('device_came_online');
