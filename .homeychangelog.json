@@ -10,5 +10,8 @@
   },
   "2.0.0": {
     "en": "Changed the App ID so it can be published in the Athom store. Changed the capability to an alarm to conform with guidelines"
+  },
+  "2.0.1": {
+    "en": "Added 'Device State Changed' triggers"
   }
 }
