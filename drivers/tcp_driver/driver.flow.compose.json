@@ -15,6 +15,24 @@
                 "nl": "Apparaat ging offline"
             },
             "args": []
+        },
+        {
+            "id": "device_change",
+            "title": {
+                "en": "Device changed state",
+                "nl": "Toestand van apparaat gewijzigd"
+            },
+            "args": [],
+            "tokens": [
+                {
+                    "name": "value",
+                    "title": {
+                        "en": "Device Online State"
+                    },
+                    "type": "boolean",
+                    "example": true
+                }
+            ]
         }
     ],
     "conditions": [

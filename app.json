@@ -79,6 +79,30 @@
         ]
       },
       {
+        "id": "ip_device_change",
+        "title": {
+          "en": "Device changed state",
+          "nl": "Toestand van apparaat gewijzigd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ip_driver"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "value",
+            "title": {
+              "en": "Device Online State"
+            },
+            "type": "boolean",
+            "example": true
+          }
+        ]
+      },
+      {
         "id": "device_came_online",
         "title": {
           "en": "Device came online",
@@ -103,6 +127,30 @@
             "type": "device",
             "name": "device",
             "filter": "driver_id=tcp_driver"
+          }
+        ]
+      },
+      {
+        "id": "device_change",
+        "title": {
+          "en": "Device changed state",
+          "nl": "Toestand van apparaat gewijzigd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tcp_driver"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "value",
+            "title": {
+              "en": "Device Online State"
+            },
+            "type": "boolean",
+            "example": true
           }
         ]
       }
