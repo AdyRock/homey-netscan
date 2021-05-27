@@ -46,5 +46,6 @@
     "bugs": {
         "url": "https://github.com/AdyRock/homey-netscan/issues"
     },
-    "source": "https://github.com/AdyRock/homey-netscan"
+    "source": "https://github.com/AdyRock/homey-netscan",
+    "homeyCommunityTopicId": 47454
 }
