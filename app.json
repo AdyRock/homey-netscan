@@ -29,7 +29,7 @@
       }
     ]
   },
-  "version": "2.0.1",
+  "version": "2.0.2",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -48,6 +48,7 @@
     "url": "https://github.com/AdyRock/homey-netscan/issues"
   },
   "source": "https://github.com/AdyRock/homey-netscan",
+  "homeyCommunityTopicId": 47454,
   "flow": {
     "triggers": [
       {

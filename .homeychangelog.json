@@ -13,5 +13,8 @@
   },
   "2.0.1": {
     "en": "Added 'Device State Changed' triggers"
+  },
+  "2.0.2": {
+    "en": "Reorganised old code to reduce memory usage"
   }
 }
