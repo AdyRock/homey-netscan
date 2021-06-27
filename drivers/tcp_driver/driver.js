@@ -48,7 +48,7 @@ class tcpDriver extends Homey.Driver
     // the `pair` method is called when a user start pairing
     async onPairListDevices()
     {
-        console.log("Pairing started");
+        this.homey.app.updateLog("Pairing started");
 
     }
 

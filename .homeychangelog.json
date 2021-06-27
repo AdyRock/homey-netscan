@@ -16,5 +16,8 @@
   },
   "2.0.2": {
     "en": "Reorganised old code to reduce memory usage"
+  },
+  "2.0.3": {
+    "en": "Added Log viewer to Configure App page"
   }
 }

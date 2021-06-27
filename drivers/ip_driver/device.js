@@ -9,7 +9,7 @@ class ipDevice extends TcpIpDevice
 {
     async onInit()
     {
-        console.info("Booting IP device ", this.getName());
+        this.homey.app.updateLog("Booting IP device " + this.getName());
         super.onInit();
     }
 

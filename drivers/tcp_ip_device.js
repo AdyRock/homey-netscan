@@ -46,17 +46,20 @@ class TcpIpDevice extends Homey.Device
 
         this.client.on('connect', () =>
         {
+            this.homey.app.updateLog(this.getName() + " - " + this.host + " on connect");
             this.handleOnline();
         });
 
         this.client.on('data', (data) =>
         {
             // Consume any data to prevent memory leaks
-            console.log(data);
+            this.homey.app.updateLog(this.getName() + " - " + this.host + " on data");
+            this.homey.app.updateLog(data);
         });
 
         this.client.on('close', (hadError) =>
         {
+            this.homey.app.updateLog(this.getName() + " - " + this.host + " on close");
             this.client.destroy();
             if (this.host)
             {
@@ -72,6 +75,7 @@ class TcpIpDevice extends Homey.Device
 
         this.client.on('error', (err) =>
         {
+            this.homey.app.updateLog(this.getName() + " - " + this.host + " on error " + err.errno);
             if (err && err.errno && err.errno == "ECONNREFUSED")
             {
                 if (this.port === null)
@@ -94,11 +98,11 @@ class TcpIpDevice extends Homey.Device
             }
             else if (err && err.errno)
             {
-                console.error("Device can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.errno);
+                this.homey.app.updateLog("Device can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.errno);
             }
             else
             {
-                console.error("Device can't handle " + err);
+                this.homey.app.updateLog("Device can't handle " + this.homey.app.varToString(err));
             }
         });
 
@@ -183,12 +187,16 @@ class TcpIpDevice extends Homey.Device
 
         if ((this.offline === null) || this.offline)
         {
-            console.info("Device came Online ", this.getName(), " - ", this.host);
+            this.homey.app.updateLog("Device came Online " + this.getName() + " - " + this.host);
             this.offline = false;
             this.setCapabilityValue('alarm_offline', false);
 
             // Trigger the online action
             this.driver.device_came_online(this);
+        }
+        else
+        {
+            this.homey.app.updateLog("Device still Online " + this.getName() + " - " + this.host);
         }
     }
 
@@ -198,12 +206,16 @@ class TcpIpDevice extends Homey.Device
         this.cancelCheck = null;
         if ((this.offline === null) || !this.offline)
         {
-            console.info("Device went Off line ", this.getName(), " - ", this.host);
+            this.homey.app.updateLog("Device went Offline " + this.getName() + " - " + this.host);
             this.offline = true;
             this.setCapabilityValue('alarm_offline', true);
 
             // Trigger the offline action
             this.driver.device_went_offline(this);
+        }
+        else
+        {
+            this.homey.app.updateLog("Device still Offline " + this.getName() + " - " + this.host);
         }
 
         this.client.destroy();
@@ -213,17 +225,17 @@ class TcpIpDevice extends Homey.Device
     {
         if (this.port === null)
         {
-            console.info("Checking IP device ", this.getName(), " - ", this.host);
+            this.homey.app.updateLog("Checking IP device " + this.getName() + " - " + this.host);
         }
         else
         {
-            console.info("Checking TCP device ", this.getName(), " - ", this.host, "port", this.port);
+            this.homey.app.updateLog("Checking TCP device " + this.getName() + " - " + this.host + "port" + this.port);
         }
 
         this.cancelCheck = this.homey.setTimeout(() =>
         {
             this.cancelCheck = null;
-            console.info("Device Timeout", this.getName());
+            this.homey.app.updateLog("Device Timeout" + this.getName());
             this.handleOffline();
         }, this.hostTimeout);
 
@@ -233,7 +245,7 @@ class TcpIpDevice extends Homey.Device
     async slowDown()
     {
         this.checkInterval *= 2;
-        console.error("Device slow down " + this.checkInterval);
+        this.homey.app.updateLog("Device slow down " + this.checkInterval);
     }
 
 }
