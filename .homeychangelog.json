@@ -19,5 +19,8 @@
   },
   "2.0.3": {
     "en": "Added Log viewer to Configure App page"
+  },
+  "2.0.4": {
+    "en": "Fix Send Log feature. Fixed issue where polling could stop on a successful connection."
   }
 }

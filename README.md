@@ -2,6 +2,8 @@
 
 Scan your (local) network with your homey. It currently only supports TCP port scans, but this can be done on an IP only basis. I've created this app to detect if my Xbox 360 is turned on, but really most devices can be detected by this app. All it requires is an IP address (and an open port).
 
+This app was originally developed by Terry Hendrix (<https://bitbucket.org/terryhendrix/homey-netscan/src/master/>) and worked with Homey up to version 4. This branch is for Homey version 5 and later.
+
 It's important to assign your devices a constant IP, either through a DHCP reservation or a static IP.
 
 ## Adding devices
@@ -30,7 +32,7 @@ Now you may scan the IP that you've just looked up. It's 10.0.0.246 in my case, 
 
 Execute `nmap -Pn 10.0.0.246` on the shell or command prompt (for windows). I get the following output:
 
-```
+```Formatted
 Starting Nmap 6.47 ( http://nmap.org ) at 2016-10-09 12:46 CEST
 Nmap scan report for 10.0.0.246
 Host is up (0.0027s latency).
@@ -57,7 +59,7 @@ Now that we've got all information present, it's time to add the device.
 
 ### TCP Port
 
-The TCP port driver allows to watch a TCP port on a specified IP-address.
+The TCP port driver allows to watch a TCP port on a specified IP-address. Any errors trying to connect, including a timeout, will be interpreted as the device being unavailable.
 
 #### TCP Port Triggers
 
@@ -71,7 +73,7 @@ The TCP port driver allows to watch a TCP port on a specified IP-address.
 
 ### IP Address
 
-The IP Address driver can be used to detect a device by ip address. Since ICMP (ping) is prohibited on Homey, I did the next best thing: Scan for closed TCP ports.
+The IP Address driver can be used to detect a device by ip address. Since ICMP (ping) is prohibited on Homey, I did the next best thing: Check for a closed TCP port. With this method, the error "ECONNREFUSED" is assumed to be a possitive result for the device to be online.
 
 #### IP Address Triggers
 

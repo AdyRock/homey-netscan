@@ -3,3 +3,5 @@
 HomeyKodi
 .DS_Store
 node_modules
+env.json
+*.log

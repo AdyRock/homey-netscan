@@ -46,8 +46,9 @@ class TcpIpDevice extends Homey.Device
 
         this.client.on('connect', () =>
         {
-            this.homey.app.updateLog(this.getName() + " - " + this.host + " on connect");
+            this.homey.app.updateLog(this.getName() + " - " + this.host + (this.port ? (": " + this.port) : "") + " on connect");
             this.handleOnline();
+            this.client.destroy();
         });
 
         this.client.on('data', (data) =>
@@ -229,7 +230,7 @@ class TcpIpDevice extends Homey.Device
         }
         else
         {
-            this.homey.app.updateLog("Checking TCP device " + this.getName() + " - " + this.host + "port" + this.port);
+            this.homey.app.updateLog("Checking TCP device " + this.getName() + " - " + this.host + " port: " + this.port);
         }
 
         this.cancelCheck = this.homey.setTimeout(() =>
