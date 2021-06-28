@@ -41,14 +41,13 @@ class TcpIpDevice extends Homey.Device
     creatClient()
     {
         this.client = new net.Socket();
-        this.client.setTimeout(this.hostTimeout);
+        //this.client.setTimeout(this.hostTimeout);
         this.scanDevice2 = this.scanDevice2.bind(this);
 
         this.client.on('connect', () =>
         {
             this.homey.app.updateLog(this.getName() + " - " + this.host + (this.port ? (": " + this.port) : "") + " on connect");
             this.handleOnline();
-            this.client.destroy();
         });
 
         this.client.on('data', (data) =>
@@ -82,7 +81,6 @@ class TcpIpDevice extends Homey.Device
                 if (this.port === null)
                 {
                     this.handleOnline();
-                    this.client.destroy();
                 }
                 else
                 {
@@ -176,7 +174,7 @@ class TcpIpDevice extends Homey.Device
             this.homey.clearTimeout(this.checkTimer);
             this.checkTimer = null;
 
-            this.client.setTimeout(this.hostTimeout);
+            //this.client.setTimeout(this.hostTimeout);
             this.scanDevice2();
         }
     }
@@ -188,7 +186,7 @@ class TcpIpDevice extends Homey.Device
 
         if ((this.offline === null) || this.offline)
         {
-            this.homey.app.updateLog("Device came Online " + this.getName() + " - " + this.host);
+            this.homey.app.updateLog("**** Device came Online " + this.getName() + " - " + this.host);
             this.offline = false;
             this.setCapabilityValue('alarm_offline', false);
 
@@ -199,6 +197,7 @@ class TcpIpDevice extends Homey.Device
         {
             this.homey.app.updateLog("Device still Online " + this.getName() + " - " + this.host);
         }
+        this.client.destroy();
     }
 
     handleOffline()
@@ -207,7 +206,7 @@ class TcpIpDevice extends Homey.Device
         this.cancelCheck = null;
         if ((this.offline === null) || !this.offline)
         {
-            this.homey.app.updateLog("Device went Offline " + this.getName() + " - " + this.host);
+            this.homey.app.updateLog("!!!! Device went Offline " + this.getName() + " - " + this.host);
             this.offline = true;
             this.setCapabilityValue('alarm_offline', true);
 
@@ -236,7 +235,7 @@ class TcpIpDevice extends Homey.Device
         this.cancelCheck = this.homey.setTimeout(() =>
         {
             this.cancelCheck = null;
-            this.homey.app.updateLog("Device Timeout" + this.getName());
+            this.homey.app.updateLog("Device Timeout " + this.getName() + " - " + this.host + (this.port ? (": " + this.port) : ""));
             this.handleOffline();
         }, this.hostTimeout);
 
