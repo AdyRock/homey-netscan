@@ -5,3 +5,4 @@ HomeyKodi
 node_modules
 env.json
 *.log
+build/
