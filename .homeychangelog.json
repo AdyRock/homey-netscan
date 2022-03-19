@@ -22,5 +22,8 @@
   },
   "2.0.4": {
     "en": "Fix Send Log feature. Fixed issue where polling could stop on a successful connection."
+  },
+  "2.0.5": {
+    "en": "Changed to use error.code instead of error.errno ready for new Homey firmware."
   }
 }

@@ -75,8 +75,8 @@ class TcpIpDevice extends Homey.Device
 
         this.client.on('error', (err) =>
         {
-            this.homey.app.updateLog(this.getName() + " - " + this.host + " on error " + err.errno);
-            if (err && err.errno && err.errno == "ECONNREFUSED")
+            this.homey.app.updateLog(this.getName() + " - " + this.host + " on error " + err.code);
+            if (err && err.code && err.code == "ECONNREFUSED")
             {
                 if (this.port === null)
                 {
@@ -87,17 +87,17 @@ class TcpIpDevice extends Homey.Device
                     this.handleOffline();
                 }
             }
-            else if (err && err.errno && err.errno == "EHOSTUNREACH")
+            else if (err && err.code && err.code == "EHOSTUNREACH")
             {
                 this.handleOffline();
             }
-            else if (err && err.errno && err.errno == "EALREADY")
+            else if (err && err.code && err.code == "EALREADY")
             {
                 this.handleOnline();
             }
-            else if (err && err.errno)
+            else if (err && err.code)
             {
-                this.homey.app.updateLog("Device can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.errno);
+                this.homey.app.updateLog("Device can only handle ECONNREFUSED and EHOSTUNREACH, but got " + err.code);
             }
             else
             {
