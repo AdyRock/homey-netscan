@@ -5,7 +5,10 @@
         "en": "Net Scan",
         "nl": "Net Scan"
     },
-    "category": [
+    "platforms": [
+        "local"
+      ],
+        "category": [
         "internet",
         "tools"
     ],
@@ -43,6 +46,7 @@
             }
         }
     },
+    "support": "https://github.com/AdyRock/homey-netscan/issues",
     "bugs": {
         "url": "https://github.com/AdyRock/homey-netscan/issues"
     },

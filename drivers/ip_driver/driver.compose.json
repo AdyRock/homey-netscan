@@ -1,59 +1,65 @@
 {
-  "name": {
-    "en": "IP address",
-    "nl": "IP adres"
-  },
-  "class": "sensor",
-  "capabilities": [
-    "alarm_offline"
-  ],
-  "images": {
-    "large": "assets/drivers/ip_driver/large.png",
-    "small": "assets/drivers/ip_driver/small.png"
-  },
-  "pair": [
-    {
-      "id": "configure_ip"
+    "name": {
+        "en": "IP address",
+        "nl": "IP adres"
     },
-    {
-      "id": "add_sockets",
-      "template": "add_devices"
-    }
-  ],
-  "settings": [
-    {
-      "type": "group",
-      "label": {
-        "en": "IP address settings",
-        "nl": "IP adres instellingen"
-      },
-      "children": [
+    "platforms": [
+        "local"
+    ],
+    "connectivity": [
+        "lan"
+    ],
+    "class": "sensor",
+    "capabilities": [
+        "alarm_offline"
+    ],
+    "images": {
+        "large": "assets/drivers/ip_driver/large.png",
+        "small": "assets/drivers/ip_driver/small.png"
+    },
+    "pair": [
         {
-          "id": "host",
-          "type": "text",
-          "value": "0.0.0.0",
-          "label": {
-            "en": "IP address",
-            "nl": "IP adres"
-          }
+            "id": "configure_ip"
         },
         {
-            "id": "host_check_interval",
-            "type": "number",
-            "value": 15,
-            "label": {
-                "en": "Check Interval"
-            }
-        },
-        {
-            "id": "host_timeout",
-            "type": "number",
-            "value": 10,
-            "label": {
-                "en": "Check Timeout"
-            }
+            "id": "add_sockets",
+            "template": "add_devices"
         }
-      ]
-    }
-  ]
+    ],
+    "settings": [
+        {
+            "type": "group",
+            "label": {
+                "en": "IP address settings",
+                "nl": "IP adres instellingen"
+            },
+            "children": [
+                {
+                    "id": "host",
+                    "type": "text",
+                    "value": "0.0.0.0",
+                    "label": {
+                        "en": "IP address",
+                        "nl": "IP adres"
+                    }
+                },
+                {
+                    "id": "host_check_interval",
+                    "type": "number",
+                    "value": 15,
+                    "label": {
+                        "en": "Check Interval"
+                    }
+                },
+                {
+                    "id": "host_timeout",
+                    "type": "number",
+                    "value": 10,
+                    "label": {
+                        "en": "Check Timeout"
+                    }
+                }
+            ]
+        }
+    ]
 }

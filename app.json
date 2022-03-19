@@ -6,6 +6,9 @@
     "en": "Net Scan",
     "nl": "Net Scan"
   },
+  "platforms": [
+    "local"
+  ],
   "category": [
     "internet",
     "tools"
@@ -44,6 +47,7 @@
       }
     }
   },
+  "support": "https://github.com/AdyRock/homey-netscan/issues",
   "bugs": {
     "url": "https://github.com/AdyRock/homey-netscan/issues"
   },
@@ -235,6 +239,12 @@
         "en": "IP address",
         "nl": "IP adres"
       },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "class": "sensor",
       "capabilities": [
         "alarm_offline"
@@ -295,6 +305,12 @@
         "en": "TCP port",
         "nl": "TCP poort"
       },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "class": "sensor",
       "capabilities": [
         "alarm_offline"
