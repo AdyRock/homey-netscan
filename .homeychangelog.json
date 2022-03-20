@@ -25,5 +25,8 @@
   },
   "2.0.5": {
     "en": "Changed to use error.code instead of error.errno ready for new Homey firmware."
+  },
+  "2.0.6": {
+    "en": "Added a settings to specify the number of checks that timeout before a device goes offline."
   }
 }

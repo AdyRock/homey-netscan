@@ -18,6 +18,7 @@ class TcpIpDevice extends Homey.Device
         this.host = this.getSetting('host');
         this.port = this.getSetting('tcp_port');
         this.checkTimer = null;
+        this.unreachableCount = 0;
 
         this.checkInterval = this.getSetting('host_check_interval');
         if (!this.checkInterval || (this.checkInterval < 15))
@@ -32,6 +33,13 @@ class TcpIpDevice extends Homey.Device
             this.hostTimeout = 10;
         }
         this.hostTimeout = 1000 * parseInt(this.hostTimeout);
+
+        this.maxUnreachableAttempts = this.getSetting('host_unreachable_checks');
+        if (!this.maxUnreachableAttempts)
+        {
+            this.maxUnreachableAttempts = 1;
+        }
+        this.maxUnreachableAttempts = parseInt(this.maxUnreachableAttempts) - 1;
 
         this.cancelCheck = null;
 
@@ -89,7 +97,17 @@ class TcpIpDevice extends Homey.Device
             }
             else if (err && err.code && err.code == "EHOSTUNREACH")
             {
-                this.handleOffline();
+                // Make sure it is not just a temporary miss
+                if (this.unreachableCount >= this.maxUnreachableAttempts)
+                {
+                    // Nope, been offline too many consecutive times
+                    this.handleOffline();
+                }
+                else
+                {
+                    this.homey.app.updateLog(`${this.getName()} - ${this.host} offline postponed for ${this.maxUnreachableAttempts - this.unreachableCount} more checks`);
+                    this.unreachableCount++;
+                }
             }
             else if (err && err.code && err.code == "EALREADY")
             {
@@ -162,6 +180,11 @@ class TcpIpDevice extends Homey.Device
             this.hostTimeout = 1000 * parseInt(this.hostTimeout);
         }
 
+        if (changedKeys.indexOf("host_unreachable_checks") >= 0)
+        {
+            this.maxUnreachableAttempts = parseInt(newSettings.host_unreachable_checks) - 1;
+        }
+
         if (this.cancelCheck)
         {
             // If the timeout timer is running then a check is in progress so cancel it now
@@ -181,6 +204,7 @@ class TcpIpDevice extends Homey.Device
 
     handleOnline()
     {
+        this.unreachableCount = 0;
         this.homey.clearTimeout(this.cancelCheck);
         this.cancelCheck = null;
 
