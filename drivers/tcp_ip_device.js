@@ -105,8 +105,12 @@ class TcpIpDevice extends Homey.Device
                 }
                 else
                 {
+                    this.homey.clearTimeout(this.cancelCheck);
+                    this.cancelCheck = null;
+            
                     this.homey.app.updateLog(`${this.getName()} - ${this.host} offline postponed for ${this.maxUnreachableAttempts - this.unreachableCount} more checks`);
                     this.unreachableCount++;
+                    this.client.destroy();
                 }
             }
             else if (err && err.code && err.code == "EALREADY")
@@ -260,7 +264,18 @@ class TcpIpDevice extends Homey.Device
         {
             this.cancelCheck = null;
             this.homey.app.updateLog("Device Timeout " + this.getName() + " - " + this.host + (this.port ? (": " + this.port) : ""));
-            this.handleOffline();
+            // Make sure it is not just a temporary miss
+            if (this.unreachableCount >= this.maxUnreachableAttempts)
+            {
+                // Nope, been offline too many consecutive times
+                this.handleOffline();
+            }
+            else
+            {
+                this.homey.app.updateLog(`${this.getName()} - ${this.host} offline postponed for ${this.maxUnreachableAttempts - this.unreachableCount} more checks`);
+                this.unreachableCount++;
+                this.client.destroy();
+            }
         }, this.hostTimeout);
 
         this.client.connect(this.port ? this.port : 1, this.host, null);

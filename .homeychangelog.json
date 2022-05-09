@@ -28,5 +28,8 @@
   },
   "2.0.6": {
     "en": "Added a settings to specify the number of checks that timeout before a device goes offline."
+  },
+  "2.0.7": {
+    "en": "Fix issue with the number of checks being ignored for a timeout."
   }
 }
