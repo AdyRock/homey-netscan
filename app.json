@@ -249,6 +249,16 @@
       "capabilities": [
         "alarm_offline"
       ],
+      "capabilitiesOptions": {
+        "alarm_offline": {
+          "titleTrue": {
+            "en": "Offline"
+          },
+          "titleFalse": {
+            "en": "Online"
+          }
+        }
+      },
       "images": {
         "large": "assets/drivers/ip_driver/large.png",
         "small": "assets/drivers/ip_driver/small.png"
@@ -329,6 +339,16 @@
       "capabilities": [
         "alarm_offline"
       ],
+      "capabilitiesOptions": {
+        "alarm_offline": {
+          "titleTrue": {
+            "en": "Offline"
+          },
+          "titleFalse": {
+            "en": "Online"
+          }
+        }
+      },
       "images": {
         "large": "assets/drivers/tcp_driver/large.png",
         "small": "assets/drivers/tcp_driver/small.png"
