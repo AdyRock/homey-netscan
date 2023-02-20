@@ -31,5 +31,8 @@
   },
   "2.0.7": {
     "en": "Fix issue with the number of checks being ignored for a timeout."
+  },
+  "2.0.8": {
+    "en": "Fixed 'Invert' option on 'Is OnLine' condition card. Deprecated 'Is Offline' condition card."
   }
 }

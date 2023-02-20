@@ -39,18 +39,19 @@
         {
             "id": "device_is_online",
             "title": {
-                "en": "Device is online",
-                "nl": "Apparaat is online"
+                "en": "Device is !{{online|offline}}",
+                "nl": "Apparaat is !{{online|offline}}"
             },
             "args": []
         },
         {
             "id": "device_is_offline",
             "title": {
-                "en": "Device is offline",
-                "nl": "Apparaat is offline"
+                "en": "Device is !{{offline|online}}",
+                "nl": "Apparaat is !{{offline|online}}"
             },
-            "args": []
+            "args": [],
+            "deprecated": true
         }
     ]
 }
