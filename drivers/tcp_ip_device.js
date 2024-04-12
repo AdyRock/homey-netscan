@@ -13,8 +13,13 @@ class TcpIpDevice extends Homey.Device
             this.addCapability('alarm_offline');
             this.removeCapability('ip_present');
         }
-
         this.offline = this.getCapabilityValue('alarm_offline');
+        if (!this.hasCapability('onoff'))
+        {
+            await this.addCapability('onoff');
+			this.setCapabilityValue('onoff', !this.offline);
+        }
+
         this.host = this.getSetting('host');
         this.port = this.getSetting('tcp_port');
         this.checkTimer = null;
@@ -43,10 +48,10 @@ class TcpIpDevice extends Homey.Device
 
         this.cancelCheck = null;
 
-        this.creatClient();
+        this.createClient();
     }
 
-    creatClient()
+    createClient()
     {
         this.client = new net.Socket();
         //this.client.setTimeout(this.hostTimeout);
@@ -217,6 +222,7 @@ class TcpIpDevice extends Homey.Device
             this.homey.app.updateLog("**** Device came Online " + this.getName() + " - " + this.host);
             this.offline = false;
             this.setCapabilityValue('alarm_offline', false);
+			this.setCapabilityValue('onoff', !this.offline);
 
             // Trigger the online action
             this.driver.device_came_online(this);
@@ -237,6 +243,7 @@ class TcpIpDevice extends Homey.Device
             this.homey.app.updateLog("!!!! Device went Offline " + this.getName() + " - " + this.host);
             this.offline = true;
             this.setCapabilityValue('alarm_offline', true);
+			this.setCapabilityValue('onoff', !this.offline);
 
             // Trigger the offline action
             this.driver.device_went_offline(this);

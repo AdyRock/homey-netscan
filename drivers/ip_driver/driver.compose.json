@@ -11,7 +11,8 @@
     ],
     "class": "sensor",
     "capabilities": [
-        "alarm_offline"
+        "alarm_offline",
+		"onoff"
     ],
     "capabilitiesOptions": {
         "alarm_offline": {
@@ -21,7 +22,10 @@
             "titleFalse": {
                 "en": "Online"
             }
-        }
+        },
+		"onoff": {
+			"uiComponent": null
+		}
     },
     "images": {
         "large": "assets/drivers/ip_driver/large.png",
