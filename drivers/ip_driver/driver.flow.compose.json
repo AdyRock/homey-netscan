@@ -1,61 +1,64 @@
 {
-    "triggers": [
-        {
-            "id": "ip_device_came_online",
-            "title": {
-                "en": "Device came online",
-                "nl": "Apparaat kwam online",
-                "de": "Gerät ging online"
-            },
-            "args": []
-        },
-        {
-            "id": "ip_device_went_offline",
-            "title": {
-                "en": "Device went offline",
-                "nl": "Apparaat ging offline",
-                "de": "Gerät ging offline"
-            },
-            "args": []
-        },
-        {
-            "id": "ip_device_change",
-            "title": {
-                "en": "Device changed state",
-                "nl": "Toestand van apparaat gewijzigd"
-            },
-            "args": [],
-            "tokens": [
-                {
-                    "name": "value",
-                    "title": {
-                        "en": "Device Online State"
-                    },
-                    "type": "boolean",
-                    "example": true
-                }
-            ]
-        }
-    ],
-    "conditions": [
-        {
-            "id": "ip_device_is_online",
-            "title": {
-                "en": "Device is !{{online|offline}}",
-                "nl": "Apparaat is !{{online|offline}}",
+	"triggers": [
+		{
+			"id": "ip_device_came_online",
+			"title": {
+				"en": "Device came online",
+				"nl": "Apparaat kwam online",
+				"de": "Gerät ging online"
+			},
+			"args": []
+		},
+		{
+			"id": "ip_device_went_offline",
+			"title": {
+				"en": "Device went offline",
+				"nl": "Apparaat ging offline",
+				"de": "Gerät ging offline"
+			},
+			"args": []
+		},
+		{
+			"id": "ip_device_change",
+			"title": {
+				"en": "Device changed state",
+				"nl": "Toestand van apparaat gewijzigd",
+				"de": "Gerätezustand geändert"
+			},
+			"args": [],
+			"tokens": [
+				{
+					"name": "value",
+					"title": {
+						"en": "Device Online State",
+						"nl": "Apparaat Online Status",
+						"de": "Gerät Online-Status"
+					},
+					"type": "boolean",
+					"example": true
+				}
+			]
+		}
+	],
+	"conditions": [
+		{
+			"id": "ip_device_is_online",
+			"title": {
+				"en": "Device is !{{online|offline}}",
+				"nl": "Apparaat is !{{online|offline}}",
 				"de": "Gerät ist !{{online|offline}}"
-            },
-            "args": []
-        },
-        {
-            "id": "ip_device_is_offline",
-            "title": {
-                "en": "Device is !{{offline|online}}",
-                "nl": "Apparaat is !{{offline|online}}",
+			},
+			"args": []
+		},
+		{
+			"id": "ip_device_is_offline",
+			"title": {
+				"en": "Device is !{{offline|online}}",
+				"nl": "Apparaat is !{{offline|online}}",
 				"de": "Gerät ist !{{offline|online}}"
-            },
-            "args": [],
-            "deprecated": true
-        }
-    ]
+			},
+			"args": [],
+			"deprecated": true
+		}
+	]
 }

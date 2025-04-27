@@ -22,7 +22,8 @@
             "id": "device_change",
             "title": {
                 "en": "Device changed state",
-                "nl": "Toestand van apparaat gewijzigd"
+                "nl": "Toestand van apparaat gewijzigd",
+				"de": "Zustand des Geräts geändert"
             },
             "args": [],
             "tokens": [
@@ -43,7 +44,7 @@
             "title": {
                 "en": "Device is !{{online|offline}}",
                 "nl": "Apparaat is !{{online|offline}}",
-                "de": "Gerät ist !{{online|offline}}",
+                "de": "Gerät ist !{{online|offline}}"
             },
             "args": []
         },
@@ -52,7 +53,7 @@
             "title": {
                 "en": "Device is !{{offline|online}}",
                 "nl": "Apparaat is !{{offline|online}}",
-                "de": "Gerät ist !{{offline|online}}",
+                "de": "Gerät ist !{{offline|online}}"
             },
             "args": [],
             "deprecated": true

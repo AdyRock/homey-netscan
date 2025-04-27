@@ -1,112 +1,138 @@
 {
-    "name": {
-        "en": "TCP port",
-        "nl": "TCP poort",
-    "de": "TCP-Port"
-    },
-    "platforms": [
-        "local"
-    ],
-    "connectivity": [
-        "lan"
-    ],
-    "class": "sensor",
-    "capabilities": [
-        "alarm_offline",
+	"name": {
+		"en": "TCP port",
+		"nl": "TCP poort",
+		"de": "TCP-Port"
+	},
+	"platforms": [
+		"local"
+	],
+	"connectivity": [
+		"lan"
+	],
+	"class": "sensor",
+	"capabilities": [
+		"alarm_offline",
 		"onoff"
-    ],
-    "capabilitiesOptions": {
-        "alarm_offline": {
-            "titleTrue": {
-                "en": "Offline"
-            },
-            "titleFalse": {
-                "en": "Online"
-            }
-        },
+	],
+	"capabilitiesOptions": {
+		"alarm_offline": {
+			"titleTrue": {
+				"en": "Offline",
+				"nl": "Offline",
+				"de": "Offline"
+			},
+			"titleFalse": {
+				"en": "Online",
+				"nl": "Online",
+				"de": "Online"
+			}
+		},
 		"onoff": {
 			"uiComponent": null
 		}
-    },
-    "images": {
-        "large": "assets/drivers/tcp_driver/large.png",
-        "small": "assets/drivers/tcp_driver/small.png"
-    },
-    "pair": [
-        {
-            "id": "configure_ip"
-        },
-        {
-            "id": "add_sockets",
-            "template": "add_devices"
-        }
-    ],
-    "settings": [
-        {
-            "type": "group",
-            "label": {
-                "en": "Port scan settings",
-                "nl": "Port scan instellingen",
-        		"de": "Port-Scan-Einstellungen"
-            },
-            "children": [
-                {
-                    "id": "host",
-                    "hint": "IP address of the device to check",
-                    "type": "text",
-                    "value": "0.0.0.0",
-                    "label": {
-                        "en": "IP address",
-                        "nl": "IP adres",
-           				 "de": "IP-Adresse"
-                    }
-                },
-                {
-                    "id": "tcp_port",
-                    "hint": "Port number on check on the device",
-                    "type": "number",
-                    "value": 9090,
-                    "label": {
-                        "en": "TCP port",
-                        "nl": "TCP poort",
-            			"de": "TCP-Port"
-                    },
-                    "max": 65535
-                },
-                {
-                    "id": "host_check_interval",
-                    "hint": "Time between checks for the device",
-                    "type": "number",
-                    "value": 15,
-                    "units": "seconds",
-                    "label": {
-                        "en": "Check Interval",
-                		"nl": "Controleer interval",
-                		"de": "Prüfintervall"
-                    }
-                },
-                {
-                    "id": "host_timeout",
-                    "hint": "Time to wait before reporting the device is offline",
-                    "type": "number",
-                    "value": 10,
-                    "units": "seconds",
-                    "label": {
-                        "en": "Check Timeout",
-                		"nl": "Controleer time-out",
-                		"de": "Zeitüberschreitung"
-                    }
-                },
-                {
-                    "id": "host_unreachable_checks",
-                    "hint": "Number of unreachable failures before reporting the device is offline",
-                    "type": "number",
-                    "value": 1,
-                    "label": {
-                        "en": "Unreachable checks"
-                    }
-                }
-            ]
-        }
-    ]
+	},
+	"images": {
+		"large": "assets/drivers/tcp_driver/large.png",
+		"small": "assets/drivers/tcp_driver/small.png"
+	},
+	"pair": [
+		{
+			"id": "configure_ip"
+		},
+		{
+			"id": "add_sockets",
+			"template": "add_devices"
+		}
+	],
+	"settings": [
+		{
+			"type": "group",
+			"label": {
+				"en": "Port scan settings",
+				"nl": "Port scan instellingen",
+				"de": "Port-Scan-Einstellungen"
+			},
+			"children": [
+				{
+					"id": "host",
+					"hint": {
+						"en": "IP address of the device to check",
+						"nl": "IP adres van het apparaat om te controleren",
+						"de": "IP-Adresse des Geräts, das überprüft werden soll"
+					},
+					"type": "text",
+					"value": "0.0.0.0",
+					"label": {
+						"en": "IP address",
+						"nl": "IP adres",
+		   				"de": "IP-Adresse"
+					}
+				},
+				{
+					"id": "tcp_port",
+					"hint": {
+						"en": "Port number on check on the device",
+						"nl": "Poortnummer om te controleren op het apparaat",
+						"de": "Portnummer zur Überprüfung des Geräts"
+					},
+					"type": "number",
+					"value": 9090,
+					"label": {
+						"en": "TCP port",
+						"nl": "TCP poort",
+						"de": "TCP-Port"
+					},
+					"max": 65535
+				},
+				{
+					"id": "host_check_interval",
+					"hint": {
+						"en": "Time between checks for the device",
+						"nl": "Tijd tussen controles voor het apparaat",
+						"de": "Zeit zwischen den Überprüfungen des Geräts"
+					},
+					"type": "number",
+					"value": 15,
+					"units": "seconds",
+					"label": {
+						"en": "Check Interval",
+						"nl": "Controleer interval",
+						"de": "Prüfintervall"
+					}
+				},
+				{
+					"id": "host_timeout",
+					"hint": {
+						"en": "Time to wait before reporting the device is offline",
+						"nl": "Tijd om te wachten voordat het apparaat offline wordt gerapporteerd",
+						"de": "Zeit zu warten, bevor das Gerät als offline gemeldet wird"
+					},
+					"type": "number",
+					"value": 10,
+					"units": "seconds",
+					"label": {
+						"en": "Check Timeout",
+						"nl": "Controleer time-out",
+						"de": "Zeitüberschreitung"
+					}
+				},
+				{
+					"id": "host_unreachable_checks",
+					"hint": {
+						"en": "Number of unreachable failures before reporting the device is offline",
+						"nl": "Aantal onbereikbare fouten voordat het apparaat offline wordt gerapporteerd",
+						"de": "Anzahl der unerreichbaren Fehler, bevor das Gerät als offline gemeldet wird"
+					},
+					"type": "number",
+					"value": 1,
+					"label": {
+						"en": "Unreachable checks",
+						"nl": "Onbereikbare controles",
+						"de": "Unerreichbare Prüfungen"
+					}
+				}
+			]
+		}
+	]
 }
