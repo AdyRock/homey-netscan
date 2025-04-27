@@ -1,18 +1,23 @@
 {
     "type": "boolean",
     "title": {
-        "en": "Offline Alarm"
+        "en": "IP reachable",
+        "nl": "IP bereikbaar",
+        "de": "IP erreichbar"
     },
     "getable": true,
     "setable": false,
     "insights": true,
     "insightsTitleFalse": {
         "en": "IP is reachable",
-        "de": "IP ist bereikbaar"
+        "nl": "IP ist bereikbaar",
+        "de": "IP ist erreichbar"
     },
     "insightsTitleTrue": {
         "en": "IP not reachable",
-        "de": "IP nicht bereikbaar"
+        "nl": "IP nicht bereikbaar",
+        "de": "IP ist nicht erreichbar"
+
     },
     "icon": "/assets/sonar.svg"
 }
