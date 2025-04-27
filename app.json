@@ -249,7 +249,8 @@
       ],
       "class": "sensor",
       "capabilities": [
-        "alarm_offline"
+        "alarm_offline",
+        "onoff"
       ],
       "capabilitiesOptions": {
         "alarm_offline": {
@@ -259,6 +260,9 @@
           "titleFalse": {
             "en": "Online"
           }
+        },
+        "onoff": {
+          "uiComponent": null
         }
       },
       "images": {
@@ -339,7 +343,8 @@
       ],
       "class": "sensor",
       "capabilities": [
-        "alarm_offline"
+        "alarm_offline",
+        "onoff"
       ],
       "capabilitiesOptions": {
         "alarm_offline": {
@@ -349,6 +354,9 @@
           "titleFalse": {
             "en": "Online"
           }
+        },
+        "onoff": {
+          "uiComponent": null
         }
       },
       "images": {

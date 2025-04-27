@@ -20,6 +20,12 @@ class TcpIpDevice extends Homey.Device
 			this.setCapabilityValue('onoff', !this.offline);
         }
 
+		let options = this.getCapabilityOptions('onoff');
+		options.setable = false;
+		options.getable = true;
+		options.uiComponent = null;
+		this.setCapabilityOptions('onoff', options);
+
         this.host = this.getSetting('host');
         this.port = this.getSetting('tcp_port');
         this.checkTimer = null;
