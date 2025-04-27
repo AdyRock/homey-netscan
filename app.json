@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.netscan",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "name": {
     "en": "Net Scan",
     "nl": "Net Scan"
@@ -19,7 +19,8 @@
   },
   "description": {
     "en": "Watch devices on your local network by scanning for TCP ports",
-    "nl": "Houdt apparaten op uw netwerk in de gaten middels een TCP poort"
+    "nl": "Houdt apparaten op uw netwerk in de gaten middels een TCP poort",
+    "de": "Überwachen Sie Geräte in Ihrem lokalen Netzwerk durch Scannen der TCP-Ports"
   },
   "contributors": {
     "developers": [
@@ -30,6 +31,11 @@
       {
         "name": "Adrian Rockall",
         "email": "ady@rockall.plus.com"
+      }
+    ],
+    "translators": [
+      {
+        "name": "DE- Dirk Göbel"
       }
     ]
   },
@@ -73,7 +79,8 @@
         "id": "ip_device_came_online",
         "title": {
           "en": "Device came online",
-          "nl": "Apparaat kwam online"
+          "nl": "Apparaat kwam online",
+          "de": "Gerät ging online"
         },
         "args": [
           {
@@ -87,7 +94,8 @@
         "id": "ip_device_went_offline",
         "title": {
           "en": "Device went offline",
-          "nl": "Apparaat ging offline"
+          "nl": "Apparaat ging offline",
+          "de": "Gerät ging offline"
         },
         "args": [
           {
@@ -101,7 +109,8 @@
         "id": "ip_device_change",
         "title": {
           "en": "Device changed state",
-          "nl": "Toestand van apparaat gewijzigd"
+          "nl": "Toestand van apparaat gewijzigd",
+          "de": "Gerätezustand geändert"
         },
         "args": [
           {
@@ -114,7 +123,9 @@
           {
             "name": "value",
             "title": {
-              "en": "Device Online State"
+              "en": "Device Online State",
+              "nl": "Apparaat Online Status",
+              "de": "Gerät Online-Status"
             },
             "type": "boolean",
             "example": true
@@ -125,7 +136,8 @@
         "id": "device_came_online",
         "title": {
           "en": "Device came online",
-          "nl": "Apparaat kwam online"
+          "nl": "Apparaat kwam online",
+          "de": "Gerät ging online"
         },
         "args": [
           {
@@ -139,7 +151,8 @@
         "id": "device_went_offline",
         "title": {
           "en": "Device went offline",
-          "nl": "Apparaat ging offline"
+          "nl": "Apparaat ging offline",
+          "de": "Gerät ging offline"
         },
         "args": [
           {
@@ -153,7 +166,8 @@
         "id": "device_change",
         "title": {
           "en": "Device changed state",
-          "nl": "Toestand van apparaat gewijzigd"
+          "nl": "Toestand van apparaat gewijzigd",
+          "de": "Zustand des Geräts geändert"
         },
         "args": [
           {
@@ -179,7 +193,8 @@
         "id": "ip_device_is_online",
         "title": {
           "en": "Device is !{{online|offline}}",
-          "nl": "Apparaat is !{{online|offline}}"
+          "nl": "Apparaat is !{{online|offline}}",
+          "de": "Gerät ist !{{online|offline}}"
         },
         "args": [
           {
@@ -193,7 +208,8 @@
         "id": "ip_device_is_offline",
         "title": {
           "en": "Device is !{{offline|online}}",
-          "nl": "Apparaat is !{{offline|online}}"
+          "nl": "Apparaat is !{{offline|online}}",
+          "de": "Gerät ist !{{offline|online}}"
         },
         "args": [
           {
@@ -208,7 +224,8 @@
         "id": "device_is_online",
         "title": {
           "en": "Device is !{{online|offline}}",
-          "nl": "Apparaat is !{{online|offline}}"
+          "nl": "Apparaat is !{{online|offline}}",
+          "de": "Gerät ist !{{online|offline}}"
         },
         "args": [
           {
@@ -222,7 +239,8 @@
         "id": "device_is_offline",
         "title": {
           "en": "Device is !{{offline|online}}",
-          "nl": "Apparaat is !{{offline|online}}"
+          "nl": "Apparaat is !{{offline|online}}",
+          "de": "Gerät ist !{{offline|online}}"
         },
         "args": [
           {
@@ -239,7 +257,8 @@
     {
       "name": {
         "en": "IP address",
-        "nl": "IP adres"
+        "nl": "IP adres",
+        "de": "IP-Adresse"
       },
       "platforms": [
         "local"
@@ -255,10 +274,14 @@
       "capabilitiesOptions": {
         "alarm_offline": {
           "titleTrue": {
-            "en": "Offline"
+            "en": "Offline",
+            "nl": "Offline",
+            "de": "Offline"
           },
           "titleFalse": {
-            "en": "Online"
+            "en": "Online",
+            "nl": "Online",
+            "de": "Online"
           }
         },
         "onoff": {
@@ -283,7 +306,8 @@
           "type": "group",
           "label": {
             "en": "IP address settings",
-            "nl": "IP adres instellingen"
+            "nl": "IP adres instellingen",
+            "de": "IP-Adresseinstellungen"
           },
           "children": [
             {
@@ -293,7 +317,8 @@
               "value": "0.0.0.0",
               "label": {
                 "en": "IP address",
-                "nl": "IP adres"
+                "nl": "IP adres",
+                "de": "IP-Adresse"
               }
             },
             {
@@ -303,7 +328,9 @@
               "value": 15,
               "units": "seconds",
               "label": {
-                "en": "Check Interval"
+                "en": "Check Interval",
+                "nl": "Controleer interval",
+                "de": "Prüfintervall"
               }
             },
             {
@@ -313,7 +340,9 @@
               "value": 10,
               "units": "seconds",
               "label": {
-                "en": "Check Timeout"
+                "en": "Check Timeout",
+                "nl": "Controleer time-out",
+                "de": "Zeitüberschreitung"
               }
             },
             {
@@ -322,7 +351,9 @@
               "type": "number",
               "value": 1,
               "label": {
-                "en": "Unreachable checks"
+                "en": "Unreachable checks",
+                "nl": "Onbereikbare controles",
+                "de": "Unerreichbare Prüfungen"
               }
             }
           ]
@@ -333,7 +364,8 @@
     {
       "name": {
         "en": "TCP port",
-        "nl": "TCP poort"
+        "nl": "TCP poort",
+        "de": "TCP-Port"
       },
       "platforms": [
         "local"
@@ -349,10 +381,14 @@
       "capabilitiesOptions": {
         "alarm_offline": {
           "titleTrue": {
-            "en": "Offline"
+            "en": "Offline",
+            "nl": "Offline",
+            "de": "Offline"
           },
           "titleFalse": {
-            "en": "Online"
+            "en": "Online",
+            "nl": "Online",
+            "de": "Online"
           }
         },
         "onoff": {
@@ -377,57 +413,86 @@
           "type": "group",
           "label": {
             "en": "Port scan settings",
-            "nl": "Port scan instellingen"
+            "nl": "Port scan instellingen",
+            "de": "Port-Scan-Einstellungen"
           },
           "children": [
             {
               "id": "host",
-              "hint": "IP address of the device to check",
+              "hint": {
+                "en": "IP address of the device to check",
+                "nl": "IP adres van het apparaat om te controleren",
+                "de": "IP-Adresse des Geräts, das überprüft werden soll"
+              },
               "type": "text",
               "value": "0.0.0.0",
               "label": {
                 "en": "IP address",
-                "nl": "IP adres"
+                "nl": "IP adres",
+                "de": "IP-Adresse"
               }
             },
             {
               "id": "tcp_port",
-              "hint": "Port number on check on the device",
+              "hint": {
+                "en": "Port number on check on the device",
+                "nl": "Poortnummer om te controleren op het apparaat",
+                "de": "Portnummer zur Überprüfung des Geräts"
+              },
               "type": "number",
               "value": 9090,
               "label": {
                 "en": "TCP port",
-                "nl": "TCP poort"
+                "nl": "TCP poort",
+                "de": "TCP-Port"
               },
               "max": 65535
             },
             {
               "id": "host_check_interval",
-              "hint": "Time between checks for the device",
+              "hint": {
+                "en": "Time between checks for the device",
+                "nl": "Tijd tussen controles voor het apparaat",
+                "de": "Zeit zwischen den Überprüfungen des Geräts"
+              },
               "type": "number",
               "value": 15,
               "units": "seconds",
               "label": {
-                "en": "Check Interval"
+                "en": "Check Interval",
+                "nl": "Controleer interval",
+                "de": "Prüfintervall"
               }
             },
             {
               "id": "host_timeout",
-              "hint": "Time to wait before reporting the device is offline",
+              "hint": {
+                "en": "Time to wait before reporting the device is offline",
+                "nl": "Tijd om te wachten voordat het apparaat offline wordt gerapporteerd",
+                "de": "Zeit zu warten, bevor das Gerät als offline gemeldet wird"
+              },
               "type": "number",
               "value": 10,
               "units": "seconds",
               "label": {
-                "en": "Check Timeout"
+                "en": "Check Timeout",
+                "nl": "Controleer time-out",
+                "de": "Zeitüberschreitung"
               }
             },
             {
               "id": "host_unreachable_checks",
-              "hint": "Number of unreachable failures before reporting the device is offline",
+              "hint": {
+                "en": "Number of unreachable failures before reporting the device is offline",
+                "nl": "Aantal onbereikbare fouten voordat het apparaat offline wordt gerapporteerd",
+                "de": "Anzahl der unerreichbaren Fehler, bevor das Gerät als offline gemeldet wird"
+              },
               "type": "number",
               "value": 1,
               "label": {
-                "en": "Unreachable checks"
+                "en": "Unreachable checks",
+                "nl": "Onbereikbare controles",
+                "de": "Unerreichbare Prüfungen"
               }
             }
           ]
@@ -440,18 +505,22 @@
     "alarm_offline": {
       "type": "boolean",
       "title": {
-        "en": "Offline Alarm"
+        "en": "IP reachable",
+        "nl": "IP bereikbaar",
+        "de": "IP erreichbar"
       },
       "getable": true,
       "setable": false,
       "insights": true,
       "insightsTitleFalse": {
         "en": "IP is reachable",
-        "de": "IP ist bereikbaar"
+        "nl": "IP ist bereikbaar",
+        "de": "IP ist erreichbar"
       },
       "insightsTitleTrue": {
         "en": "IP not reachable",
-        "de": "IP nicht bereikbaar"
+        "nl": "IP nicht bereikbaar",
+        "de": "IP ist nicht erreichbar"
       },
       "icon": "/assets/sonar.svg"
     }
