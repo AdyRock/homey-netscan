@@ -125,7 +125,7 @@
             "title": {
               "en": "Device Online State",
               "nl": "Apparaat Online Status",
-              "de": "Gerät Online-Status"
+              "de": "Online-Status Gerät"
             },
             "type": "boolean",
             "example": true
@@ -353,7 +353,7 @@
               "label": {
                 "en": "Unreachable checks",
                 "nl": "Onbereikbare controles",
-                "de": "Unerreichbare Prüfungen"
+                "de": "Anzahl Erreichbarkeits-Prüfungen"
               }
             }
           ]
