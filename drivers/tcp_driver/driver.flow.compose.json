@@ -23,7 +23,7 @@
             "title": {
                 "en": "Device changed state",
                 "nl": "Toestand van apparaat gewijzigd",
-				"de": "Zustand des Geräts geändert"
+		"de": "Gerät hat Zustand geändert"
             },
             "args": [],
             "tokens": [
