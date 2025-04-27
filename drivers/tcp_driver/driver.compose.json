@@ -1,7 +1,8 @@
 {
     "name": {
         "en": "TCP port",
-        "nl": "TCP poort"
+        "nl": "TCP poort",
+    "de": "TCP-Port"
     },
     "platforms": [
         "local"
@@ -45,7 +46,8 @@
             "type": "group",
             "label": {
                 "en": "Port scan settings",
-                "nl": "Port scan instellingen"
+                "nl": "Port scan instellingen",
+        		"de": "Port-Scan-Einstellungen"
             },
             "children": [
                 {
@@ -55,7 +57,8 @@
                     "value": "0.0.0.0",
                     "label": {
                         "en": "IP address",
-                        "nl": "IP adres"
+                        "nl": "IP adres",
+           				 "de": "IP-Adresse"
                     }
                 },
                 {
@@ -65,7 +68,8 @@
                     "value": 9090,
                     "label": {
                         "en": "TCP port",
-                        "nl": "TCP poort"
+                        "nl": "TCP poort",
+            			"de": "TCP-Port"
                     },
                     "max": 65535
                 },
@@ -76,7 +80,9 @@
                     "value": 15,
                     "units": "seconds",
                     "label": {
-                        "en": "Check Interval"
+                        "en": "Check Interval",
+                		"nl": "Controleer interval",
+                		"de": "Prüfintervall"
                     }
                 },
                 {
@@ -86,7 +92,9 @@
                     "value": 10,
                     "units": "seconds",
                     "label": {
-                        "en": "Check Timeout"
+                        "en": "Check Timeout",
+                		"nl": "Controleer time-out",
+                		"de": "Zeitüberschreitung"
                     }
                 },
                 {
