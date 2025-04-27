@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="lwsa.css">
+    <link rel="stylesheet" type="text/css" href="busy_indicator.css" />
+
+    <style type="text/css">
+        .fog_div {
+            display: none;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            height: 100%;
+            width: 100%;
+            z-index: 100;
+            background-color: rgba(30, 30, 30, 0.5);
+        }
+
+        #busybox.show {
+            display: block;
+        }
+    </style>
+
+    <!-- The '/homey.js' script must be included in your settings view to work -->
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+    <script type="text/javascript" src="busy_indicator.js"></script>
+</head>
+
+<body>
+    <!-- Busy indicator -->
+    <div id="busybox" class="fog_div">
+        <div></div>
+    </div>
+
+    <!-- Tab links -->
+    <div class="tab">
+        <button class="tablinks" onclick="setPage(event, 'log')" id="defaultOpen">Log</button>
+    </div>
+
+    <!-- LOG PAGE -->
+    <div id="log" class="tabcontent">
+        <fieldset>
+            <p> Diagnostics Log
+            </p>
+            <div class="field row">
+                <label for="logLevel"><span data-i18n="settings.logLevel"></span></label>
+                <select id="logLevel">
+                    <option value=0>Errors Only</option>
+                    <option value=1>Basic Information</option>
+                </select>
+                <P></P>
+            </div>
+        </fieldset>
+        <fieldset>
+            <p>
+                <button id="clearInfoLog" style="background-color:#a5510d;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.clear"></button>
+                <button id="sendInfoLog" style="background-color:#0f9e16;color:white;margin:5px 20px 5px 5px;" data-i18n="settings.send"></button>
+            </p>
+            <div class="field row">
+                <textarea id="infoLog"></textarea>
+            </div>
+        </fieldset>
+    </div>
+
+    <script type="text/javascript">
+        // Create the busy indicator
+        var busyi;
+        busyi = new busy_indicator(document.getElementById("busybox"), document.querySelector("#busybox div"));
+
+        var infoLogElement = document.getElementById('infoLog');
+        var logLevelElement = document.getElementById('logLevel');
+        var clearInfoLogElement = document.getElementById('clearInfoLog');
+        var sendInfoLogElement = document.getElementById('sendInfoLog');
+
+        // a method named 'onHomeyReady' must be present in your code
+        function onHomeyReady(Homey)
+        {
+            document.getElementById("defaultOpen").click();
+
+            Homey.on('com.netscan.logupdated', function(data)
+            {
+                infoLogElement.value = data.log;
+            });
+
+            Homey.get('logLevel', function(err, logLevel)
+            {
+                if (err) return Homey.alert(err);
+                logLevelElement.value = logLevel.toString();
+            });
+
+            Homey.api('GET', '/getLog/',
+            {
+                notify: true
+            }, function(err, result)
+            {
+                if (err)
+                {
+                    return Homey.alert(err);
+                }
+                else
+                {
+                    infoLogElement.value = result;
+                }
+            });
+
+            logLevelElement.addEventListener('change', function(e)
+            {
+                Homey.set('logLevel', parseInt(logLevelElement.value), function(err)
+                {
+                    if (err) return Homey.alert(err);
+                });
+            });
+
+            sendInfoLogElement.addEventListener('click', function(e)
+            {
+                if (infoLogElement.value.length < 15)
+                {
+                    return Homey.alert("No Data to send");
+                }
+
+                Homey.confirm("Send the information log contents to the developer?", null, function(e, ok)
+                {
+                    if (ok)
+                    {
+                        waitCursor(true);
+                        Homey.api('POST', '/sendInfoLog/',
+                        {
+                            notify: true
+                        }, function(err, result)
+                        {
+                            if (err)
+                            {
+                                Homey.alert(err);
+                            }
+                            else
+                            {
+                                Homey.alert("Log sent successfully");
+                            }
+                            waitCursor(false);
+                        });
+                    }
+                });
+            });
+
+            clearInfoLogElement.addEventListener('click', function(e)
+            {
+                Homey.api('POST', '/clearLog/',
+                {
+                    notify: true
+                }, function(err, result)
+                {
+                    if (err)
+                    {
+                        return Homey.alert(err);
+                    }
+                    else
+                    {
+                        infoLogElement.value = "";
+                    }
+                });
+            });
+
+            // Tell Homey we're ready to be displayed
+            Homey.ready();
+        }
+
+        function setPage(evt, tabPage)
+        {
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++)
+            {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++)
+            {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabPage).style.display = "block";
+            evt.currentTarget.className += " active";
+
+            if (tabPage == 'log')
+            {
+                // Refresh the log data
+                Homey.get('logLevel', function(err, logLevel)
+                {
+                    if (err) return Homey.alert(err);
+                    logLevelElement.value = logLevel;
+                });
+
+                // Make the log text area fill the page
+                infoLogElement.setAttribute('cols', infoLogElement.parentElement.clientWidth / 8);
+                infoLogElement.style.height = (window.innerHeight - infoLogElement.offsetTop - 50) + 'px';
+            }
+        }
+
+        function waitCursor(On)
+        {
+            if (On)
+            {
+                busyi.show();
+            }
+            else
+            {
+                busyi.hide();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
