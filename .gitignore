@@ -2,3 +2,5 @@
 *.iml
 HomeyKodi
 .DS_Store
+node_modules\
+.homeybuild\
