@@ -19,13 +19,13 @@
         "alarm_offline": {
             "titleTrue": {
                 "en": "Offline",
-				"nl": "Offline",
-				"de": "Offline"
+		"nl": "Offline",
+		"de": "Offline"
             },
             "titleFalse": {
                 "en": "Online",
-				"nl": "Online",
-				"de": "Online"
+		"nl": "Online",
+		"de": "Online"
             }
         },
 		"onoff": {
@@ -51,7 +51,7 @@
             "label": {
                 "en": "IP address settings",
                 "nl": "IP adres instellingen",
-        		"de": "IP-Adresseinstellungen"
+        	"de": "IP-Adresseinstellungen"
             },
             "children": [
                 {
@@ -62,7 +62,7 @@
                     "label": {
                         "en": "IP address",
                         "nl": "IP adres",
-            			"de": "IP-Adresse"
+            		"de": "IP-Adresse"
                     }
                 },
                 {
@@ -73,8 +73,8 @@
                     "units": "seconds",
                     "label": {
                         "en": "Check Interval",
-                		"nl": "Controleer interval",
-                		"de": "Prüfintervall"
+                	"nl": "Controleer interval",
+                	"de": "Prüfintervall"
                     }
                 },
                 {
@@ -85,8 +85,8 @@
                     "units": "seconds",
                     "label": {
                         "en": "Check Timeout",
-                		"nl": "Controleer time-out",
-                		"de": "Zeitüberschreitung"
+                	"nl": "Controleer time-out",
+                	"de": "Zeitüberschreitung"
                     }
                 },
                 {
@@ -97,7 +97,7 @@
                     "label": {
                         "en": "Unreachable checks",
                         "nl": "Onbereikbare controles",
-                        "de": "Unerreichbare Prüfungen"
+                        "de": "Anzahl Erreichbarkeits-Prüfungen"
                     }
                 }
             ]
