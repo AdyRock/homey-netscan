@@ -4,7 +4,8 @@
             "id": "device_came_online",
             "title": {
                 "en": "Device came online",
-                "nl": "Apparaat kwam online"
+                "nl": "Apparaat kwam online",
+                "de": "Gerät ging online"
             },
             "args": []
         },
@@ -12,7 +13,8 @@
             "id": "device_went_offline",
             "title": {
                 "en": "Device went offline",
-                "nl": "Apparaat ging offline"
+                "nl": "Apparaat ging offline",
+                "de": "Gerät ging offline"
             },
             "args": []
         },
@@ -40,7 +42,8 @@
             "id": "device_is_online",
             "title": {
                 "en": "Device is !{{online|offline}}",
-                "nl": "Apparaat is !{{online|offline}}"
+                "nl": "Apparaat is !{{online|offline}}",
+                "de": "Gerät ist !{{online|offline}}",
             },
             "args": []
         },
@@ -48,7 +51,8 @@
             "id": "device_is_offline",
             "title": {
                 "en": "Device is !{{offline|online}}",
-                "nl": "Apparaat is !{{offline|online}}"
+                "nl": "Apparaat is !{{offline|online}}",
+                "de": "Gerät ist !{{offline|online}}",
             },
             "args": [],
             "deprecated": true

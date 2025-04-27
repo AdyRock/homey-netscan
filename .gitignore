@@ -2,6 +2,8 @@
 *.iml
 HomeyKodi
 .DS_Store
+node_modules\
+.homeybuild\
 node_modules
 env.json
 *.log
