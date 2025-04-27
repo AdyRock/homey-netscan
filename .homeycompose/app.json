@@ -1,10 +1,14 @@
 {
-    "id": "nl.terryhendrix.netscan",
+    "id": "com.netscan",
+    "version": "2.0.8",
     "name": {
         "en": "Net Scan",
         "nl": "Net Scan"
     },
-    "category": [
+    "platforms": [
+        "local"
+      ],
+        "category": [
         "internet",
         "tools"
     ],
@@ -28,7 +32,6 @@
             }
         ]
     },
-    "version": "1.0.1",
     "compatibility": ">=5.0.0",
     "sdk": 3,
     "brandColor": "#FF7D4B",
@@ -43,8 +46,28 @@
             }
         }
     },
+    "support": "https://github.com/AdyRock/homey-netscan/issues",
     "bugs": {
         "url": "https://github.com/AdyRock/homey-netscan/issues"
     },
-    "source": "https://github.com/AdyRock/homey-netscan"
+    "source": "https://github.com/AdyRock/homey-netscan",
+    "homeyCommunityTopicId": 47454,
+    "api":
+    {
+        "getLog":
+        {
+            "method": "get",
+            "path": "/getLog/"
+        },
+        "clearLog":
+        {
+            "method": "post",
+            "path": "/clearLog/"
+        },
+        "SendInfoLog":
+        {
+            "method": "post",
+            "path": "/SendInfoLog/"
+        }
+    }
 }

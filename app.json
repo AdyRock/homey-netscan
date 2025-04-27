@@ -1,10 +1,14 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
-  "id": "nl.terryhendrix.netscan",
+  "id": "com.netscan",
+  "version": "2.0.8",
   "name": {
     "en": "Net Scan",
     "nl": "Net Scan"
   },
+  "platforms": [
+    "local"
+  ],
   "category": [
     "internet",
     "tools"
@@ -29,7 +33,6 @@
       }
     ]
   },
-  "version": "1.0.1",
   "compatibility": ">=5.0.0",
   "sdk": 3,
   "brandColor": "#FF7D4B",
@@ -44,10 +47,26 @@
       }
     }
   },
+  "support": "https://github.com/AdyRock/homey-netscan/issues",
   "bugs": {
     "url": "https://github.com/AdyRock/homey-netscan/issues"
   },
   "source": "https://github.com/AdyRock/homey-netscan",
+  "homeyCommunityTopicId": 47454,
+  "api": {
+    "getLog": {
+      "method": "get",
+      "path": "/getLog/"
+    },
+    "clearLog": {
+      "method": "post",
+      "path": "/clearLog/"
+    },
+    "SendInfoLog": {
+      "method": "post",
+      "path": "/SendInfoLog/"
+    }
+  },
   "flow": {
     "triggers": [
       {
@@ -79,6 +98,30 @@
         ]
       },
       {
+        "id": "ip_device_change",
+        "title": {
+          "en": "Device changed state",
+          "nl": "Toestand van apparaat gewijzigd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=ip_driver"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "value",
+            "title": {
+              "en": "Device Online State"
+            },
+            "type": "boolean",
+            "example": true
+          }
+        ]
+      },
+      {
         "id": "device_came_online",
         "title": {
           "en": "Device came online",
@@ -105,14 +148,38 @@
             "filter": "driver_id=tcp_driver"
           }
         ]
+      },
+      {
+        "id": "device_change",
+        "title": {
+          "en": "Device changed state",
+          "nl": "Toestand van apparaat gewijzigd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=tcp_driver"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "value",
+            "title": {
+              "en": "Device Online State"
+            },
+            "type": "boolean",
+            "example": true
+          }
+        ]
       }
     ],
     "conditions": [
       {
         "id": "ip_device_is_online",
         "title": {
-          "en": "Device is online",
-          "nl": "Apparaat is online"
+          "en": "Device is !{{online|offline}}",
+          "nl": "Apparaat is !{{online|offline}}"
         },
         "args": [
           {
@@ -125,8 +192,8 @@
       {
         "id": "ip_device_is_offline",
         "title": {
-          "en": "Device is offline",
-          "nl": "Apparaat is offline"
+          "en": "Device is !{{offline|online}}",
+          "nl": "Apparaat is !{{offline|online}}"
         },
         "args": [
           {
@@ -134,13 +201,14 @@
             "name": "device",
             "filter": "driver_id=ip_driver"
           }
-        ]
+        ],
+        "deprecated": true
       },
       {
         "id": "device_is_online",
         "title": {
-          "en": "Device is online",
-          "nl": "Apparaat is online"
+          "en": "Device is !{{online|offline}}",
+          "nl": "Apparaat is !{{online|offline}}"
         },
         "args": [
           {
@@ -153,8 +221,8 @@
       {
         "id": "device_is_offline",
         "title": {
-          "en": "Device is offline",
-          "nl": "Apparaat is offline"
+          "en": "Device is !{{offline|online}}",
+          "nl": "Apparaat is !{{offline|online}}"
         },
         "args": [
           {
@@ -162,7 +230,8 @@
             "name": "device",
             "filter": "driver_id=tcp_driver"
           }
-        ]
+        ],
+        "deprecated": true
       }
     ]
   },
@@ -172,10 +241,30 @@
         "en": "IP address",
         "nl": "IP adres"
       },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "class": "sensor",
       "capabilities": [
-        "ip_present"
+        "alarm_offline",
+        "onoff"
       ],
+      "capabilitiesOptions": {
+        "alarm_offline": {
+          "titleTrue": {
+            "en": "Offline"
+          },
+          "titleFalse": {
+            "en": "Online"
+          }
+        },
+        "onoff": {
+          "uiComponent": null
+        }
+      },
       "images": {
         "large": "assets/drivers/ip_driver/large.png",
         "small": "assets/drivers/ip_driver/small.png"
@@ -199,6 +288,7 @@
           "children": [
             {
               "id": "host",
+              "hint": "IP address of the device to check",
               "type": "text",
               "value": "0.0.0.0",
               "label": {
@@ -208,18 +298,31 @@
             },
             {
               "id": "host_check_interval",
+              "hint": "Time between checks for the device",
               "type": "number",
               "value": 15,
+              "units": "seconds",
               "label": {
                 "en": "Check Interval"
               }
             },
             {
               "id": "host_timeout",
+              "hint": "Time to wait before reporting the device is offline",
               "type": "number",
               "value": 10,
+              "units": "seconds",
               "label": {
                 "en": "Check Timeout"
+              }
+            },
+            {
+              "id": "host_unreachable_checks",
+              "hint": "Number of unreachable failures before reporting the device is offline",
+              "type": "number",
+              "value": 1,
+              "label": {
+                "en": "Unreachable checks"
               }
             }
           ]
@@ -232,10 +335,30 @@
         "en": "TCP port",
         "nl": "TCP poort"
       },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "class": "sensor",
       "capabilities": [
-        "ip_present"
+        "alarm_offline",
+        "onoff"
       ],
+      "capabilitiesOptions": {
+        "alarm_offline": {
+          "titleTrue": {
+            "en": "Offline"
+          },
+          "titleFalse": {
+            "en": "Online"
+          }
+        },
+        "onoff": {
+          "uiComponent": null
+        }
+      },
       "images": {
         "large": "assets/drivers/tcp_driver/large.png",
         "small": "assets/drivers/tcp_driver/small.png"
@@ -259,6 +382,7 @@
           "children": [
             {
               "id": "host",
+              "hint": "IP address of the device to check",
               "type": "text",
               "value": "0.0.0.0",
               "label": {
@@ -268,6 +392,7 @@
             },
             {
               "id": "tcp_port",
+              "hint": "Port number on check on the device",
               "type": "number",
               "value": 9090,
               "label": {
@@ -278,18 +403,31 @@
             },
             {
               "id": "host_check_interval",
+              "hint": "Time between checks for the device",
               "type": "number",
               "value": 15,
+              "units": "seconds",
               "label": {
                 "en": "Check Interval"
               }
             },
             {
               "id": "host_timeout",
+              "hint": "Time to wait before reporting the device is offline",
               "type": "number",
               "value": 10,
+              "units": "seconds",
               "label": {
                 "en": "Check Timeout"
+              }
+            },
+            {
+              "id": "host_unreachable_checks",
+              "hint": "Number of unreachable failures before reporting the device is offline",
+              "type": "number",
+              "value": 1,
+              "label": {
+                "en": "Unreachable checks"
               }
             }
           ]
@@ -299,21 +437,19 @@
     }
   ],
   "capabilities": {
-    "ip_present": {
+    "alarm_offline": {
       "type": "boolean",
       "title": {
-        "en": "IP reachable",
-        "nl": "IP bereikbaar"
+        "en": "Offline Alarm"
       },
       "getable": true,
       "setable": false,
       "insights": true,
-      "uiQuickAction": true,
-      "insightsTitleTrue": {
+      "insightsTitleFalse": {
         "en": "IP is reachable",
         "de": "IP ist bereikbaar"
       },
-      "insightsTitleFalse": {
+      "insightsTitleTrue": {
         "en": "IP not reachable",
         "de": "IP nicht bereikbaar"
       },

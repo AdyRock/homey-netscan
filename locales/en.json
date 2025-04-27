@@ -1,12 +1,16 @@
 {
-  "pair": {
-    "configuration" : {
-      "name": "Name",
-      "ip_address" : "IP address",
-      "tcp_port" : "TCP port",
-      "configure" : "Configure",
-      "explanation" : "Watch a TCP port on a specific IP address.",
-      "tcp_port_invalid" : "The specified TCP port is invalid. Should be between 1 and 65535"
+    "settings": {
+        "clear": "Clear Log",
+        "send": "Send Log"
+    },
+    "pair": {
+        "configuration": {
+            "name": "Name",
+            "ip_address": "IP address",
+            "tcp_port": "TCP port",
+            "configure": "Configure",
+            "explanation": "Watch a TCP port on a specific IP address.",
+            "tcp_port_invalid": "The specified TCP port is invalid. Should be between 1 and 65535"
+        }
     }
-  }
 }

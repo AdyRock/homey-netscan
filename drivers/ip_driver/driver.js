@@ -14,46 +14,47 @@ class ipDriver extends Homey.Driver
     {
         console.info("Booting IP driver");
 
-        let ip_device_is_online_condition = this.homey.flow.getConditionCard('ip_device_is_online');
-        ip_device_is_online_condition.registerRunListener(async (args, state) =>
-        {
-            return args.device.state; // true or false
-        });
-
-        let ip_device_is_offline_condition = this.homey.flow.getConditionCard('ip_device_is_offline');
-        ip_device_is_offline_condition.registerRunListener(async (args, state) =>
-        {
-            return !args.device.state; // true or false
-        });
-
         this.ip_device_came_online_trigger = this.homey.flow.getDeviceTriggerCard('ip_device_came_online');
         this.ip_device_went_offline_trigger = this.homey.flow.getDeviceTriggerCard('ip_device_went_offline');
+        this.ip_device_changed_state_trigger = this.homey.flow.getDeviceTriggerCard('ip_device_change');
     }
 
-    device_came_online(device, tokens, state)
+    device_came_online(device)
     {
         this.ip_device_came_online_trigger
-        .trigger(device, tokens, state)
-        .catch(this.error);
+            .trigger(device)
+            .catch(this.error);
+
+        let tokens = {
+            value: true
+        };
+
+        this.ip_device_changed_state_trigger
+            .trigger(device, tokens)
+            .catch(this.error);
     }
 
-    device_went_offline(device, tokens, state)
+    device_went_offline(device)
     {
         this.ip_device_went_offline_trigger
-        .trigger(device, tokens, state)
-        .catch(this.error);
-}
+            .trigger(device)
+            .catch(this.error);
+
+        let tokens = {
+            value: false
+        };
+
+        this.ip_device_changed_state_trigger
+            .trigger(device, tokens)
+            .catch(this.error);
+    }
 
     // the `pair` method is called when a user start pairing
     async onPairListDevices()
     {
-        console.log("Pairing started");
+        this.homey.app.updateLog("Pairing started");
 
     }
 
-
 }
 module.exports = ipDriver;
-
-
-

@@ -3,3 +3,10 @@
 HomeyKodi
 .DS_Store
 node_modules
+env.json
+*.log
+build/
+
+
+# Added by Homey CLI
+/.homeybuild/

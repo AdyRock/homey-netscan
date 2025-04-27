@@ -1,59 +1,93 @@
 {
-  "name": {
-    "en": "IP address",
-    "nl": "IP adres"
-  },
-  "class": "sensor",
-  "capabilities": [
-    "ip_present"
-  ],
-  "images": {
-    "large": "assets/drivers/ip_driver/large.png",
-    "small": "assets/drivers/ip_driver/small.png"
-  },
-  "pair": [
-    {
-      "id": "configure_ip"
+    "name": {
+        "en": "IP address",
+        "nl": "IP adres"
     },
-    {
-      "id": "add_sockets",
-      "template": "add_devices"
-    }
-  ],
-  "settings": [
-    {
-      "type": "group",
-      "label": {
-        "en": "IP address settings",
-        "nl": "IP adres instellingen"
-      },
-      "children": [
-        {
-          "id": "host",
-          "type": "text",
-          "value": "0.0.0.0",
-          "label": {
-            "en": "IP address",
-            "nl": "IP adres"
-          }
-        },
-        {
-            "id": "host_check_interval",
-            "type": "number",
-            "value": 15,
-            "label": {
-                "en": "Check Interval"
+    "platforms": [
+        "local"
+    ],
+    "connectivity": [
+        "lan"
+    ],
+    "class": "sensor",
+    "capabilities": [
+        "alarm_offline",
+		"onoff"
+    ],
+    "capabilitiesOptions": {
+        "alarm_offline": {
+            "titleTrue": {
+                "en": "Offline"
+            },
+            "titleFalse": {
+                "en": "Online"
             }
         },
+		"onoff": {
+			"uiComponent": null
+		}
+    },
+    "images": {
+        "large": "assets/drivers/ip_driver/large.png",
+        "small": "assets/drivers/ip_driver/small.png"
+    },
+    "pair": [
         {
-            "id": "host_timeout",
-            "type": "number",
-            "value": 10,
-            "label": {
-                "en": "Check Timeout"
-            }
+            "id": "configure_ip"
+        },
+        {
+            "id": "add_sockets",
+            "template": "add_devices"
         }
-      ]
-    }
-  ]
+    ],
+    "settings": [
+        {
+            "type": "group",
+            "label": {
+                "en": "IP address settings",
+                "nl": "IP adres instellingen"
+            },
+            "children": [
+                {
+                    "id": "host",
+                    "hint": "IP address of the device to check",
+                    "type": "text",
+                    "value": "0.0.0.0",
+                    "label": {
+                        "en": "IP address",
+                        "nl": "IP adres"
+                    }
+                },
+                {
+                    "id": "host_check_interval",
+                    "hint": "Time between checks for the device",
+                    "type": "number",
+                    "value": 15,
+                    "units": "seconds",
+                    "label": {
+                        "en": "Check Interval"
+                    }
+                },
+                {
+                    "id": "host_timeout",
+                    "hint": "Time to wait before reporting the device is offline",
+                    "type": "number",
+                    "value": 10,
+                    "units": "seconds",
+                    "label": {
+                        "en": "Check Timeout"
+                    }
+                },
+                {
+                    "id": "host_unreachable_checks",
+                    "hint": "Number of unreachable failures before reporting the device is offline",
+                    "type": "number",
+                    "value": 1,
+                    "label": {
+                        "en": "Unreachable checks"
+                    }
+                }
+            ]
+        }
+    ]
 }

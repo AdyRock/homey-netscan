@@ -4,5 +4,35 @@
   },
   "1.0.1": {
     "en": "Fix crash in TCP ddriver."
+  },
+  "1.0.2": {
+    "en": "Changing the port number no longer requires a restart of the app to take effect. The online and offline flow cards where reversed for the TCP device."
+  },
+  "2.0.0": {
+    "en": "Changed the App ID so it can be published in the Athom store. Changed the capability to an alarm to conform with guidelines"
+  },
+  "2.0.1": {
+    "en": "Added 'Device State Changed' triggers"
+  },
+  "2.0.2": {
+    "en": "Reorganised old code to reduce memory usage"
+  },
+  "2.0.3": {
+    "en": "Added Log viewer to Configure App page"
+  },
+  "2.0.4": {
+    "en": "Fix Send Log feature. Fixed issue where polling could stop on a successful connection."
+  },
+  "2.0.5": {
+    "en": "Changed to use error.code instead of error.errno ready for new Homey firmware."
+  },
+  "2.0.6": {
+    "en": "Added a settings to specify the number of checks that timeout before a device goes offline."
+  },
+  "2.0.7": {
+    "en": "Fix issue with the number of checks being ignored for a timeout."
+  },
+  "2.0.8": {
+    "en": "Fixed 'Invert' option on 'Is OnLine' condition card. Deprecated 'Is Offline' condition card."
   }
 }
