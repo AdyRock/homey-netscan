@@ -59,7 +59,7 @@
 					"hint": {
 						"en": "IP address of the device to check",
 						"nl": "IP adres van het apparaat om te controleren",
-						"de": "IP-Adresse des Geräts, das überprüft werden soll"
+						"de": "IP-Adresse des zu überprüfenden Geräts"
 					},
 					"type": "text",
 					"value": "0.0.0.0",
@@ -74,7 +74,7 @@
 					"hint": {
 						"en": "Port number on check on the device",
 						"nl": "Poortnummer om te controleren op het apparaat",
-						"de": "Portnummer zur Überprüfung des Geräts"
+						"de": "Portnummer des zu überprüfenden Geräts"
 					},
 					"type": "number",
 					"value": 9090,
@@ -106,7 +106,7 @@
 					"hint": {
 						"en": "Time to wait before reporting the device is offline",
 						"nl": "Tijd om te wachten voordat het apparaat offline wordt gerapporteerd",
-						"de": "Zeit zu warten, bevor das Gerät als offline gemeldet wird"
+						"de": "Zeit bis zur Offline-Meldung des Geräts"
 					},
 					"type": "number",
 					"value": 10,
@@ -122,14 +122,14 @@
 					"hint": {
 						"en": "Number of unreachable failures before reporting the device is offline",
 						"nl": "Aantal onbereikbare fouten voordat het apparaat offline wordt gerapporteerd",
-						"de": "Anzahl der unerreichbaren Fehler, bevor das Gerät als offline gemeldet wird"
+						"de": "Anzahl der Fehlversuche bis zur Offline-Meldung des Geräts"
 					},
 					"type": "number",
 					"value": 1,
 					"label": {
 						"en": "Unreachable checks",
 						"nl": "Onbereikbare controles",
-						"de": "Unerreichbare Prüfungen"
+						"de": "Anzahl Erreichbarkeits-Prüfungen"
 					}
 				}
 			]
