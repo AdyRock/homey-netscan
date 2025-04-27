@@ -32,7 +32,7 @@
 					"title": {
 						"en": "Device Online State",
 						"nl": "Apparaat Online Status",
-						"de": "Gerät Online-Status"
+						"de": "Online-Status Gerät"
 					},
 					"type": "boolean",
 					"example": true
