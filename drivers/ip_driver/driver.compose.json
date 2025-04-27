@@ -1,7 +1,8 @@
 {
   "name": {
     "en": "IP address",
-    "nl": "IP adres"
+    "nl": "IP adres",
+    "de": "IP-Adresse"
   },
   "class": "sensor",
   "capabilities": [
@@ -25,7 +26,8 @@
       "type": "group",
       "label": {
         "en": "IP address settings",
-        "nl": "IP adres instellingen"
+        "nl": "IP adres instellingen",
+        "de": "IP-Adresseinstellungen"
       },
       "children": [
         {
@@ -34,7 +36,8 @@
           "value": "0.0.0.0",
           "label": {
             "en": "IP address",
-            "nl": "IP adres"
+            "nl": "IP adres",
+            "de": "IP-Adresse"
           }
         },
         {
@@ -42,7 +45,9 @@
             "type": "number",
             "value": 15,
             "label": {
-                "en": "Check Interval"
+                "en": "Check Interval",
+                "nl": "Controleer interval",
+                "de": "Prüfintervall"
             }
         },
         {
@@ -50,7 +55,9 @@
             "type": "number",
             "value": 10,
             "label": {
-                "en": "Check Timeout"
+                "en": "Check Timeout",
+                "nl": "Controleer time-out",
+                "de": "Zeitüberschreitung"
             }
         }
       ]
