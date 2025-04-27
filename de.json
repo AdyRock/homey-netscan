@@ -1,0 +1,12 @@
+{
+  "pair": {
+    "configuration" : {
+      "name": "Bezeichnung",
+      "ip_address" : "IP-Adresse",
+      "tcp_port" : "TCP-Port",
+      "configure" : "Konfigurieren",
+      "explanation" : "Überwachung eines TCP-Ports an einer spezifischen IP-Adresse.",
+      "tcp_port_invalid" : "Der angegebene TCP-Port ist ungültig. Er sollte zwischen 1 und 65535 liegen."
+    }
+  }
+}
