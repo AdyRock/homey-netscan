@@ -90,7 +90,7 @@
                     "id": "host_timeout",
                     "hint": {
 			"en": "Time to wait before reporting the device is offline",
-			"de": "Dauer bis zur Meldung, dass das Gerät offline ist"
+			"de": "Dauer bis zur Offline-Meldung des Geräts"
 		    }
                     "type": "number",
                     "value": 10,
