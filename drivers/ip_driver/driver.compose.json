@@ -56,7 +56,10 @@
             "children": [
                 {
                     "id": "host",
-                    "hint": "IP address of the device to check",
+                    "hint": {
+			"en": "IP address of the device to check",
+			"de": "IP-Adresse des zu prüfenden Geräts"
+		    }
                     "type": "text",
                     "value": "0.0.0.0",
                     "label": {
@@ -67,10 +70,16 @@
                 },
                 {
                     "id": "host_check_interval",
-                    "hint": "Time between checks for the device",
+                    "hint": {
+			"en": "Time between checks for the device",
+			"de": "Zeit zwischen den Prüfungen des Geräts"
+		    }
                     "type": "number",
                     "value": 15,
-                    "units": "seconds",
+                    "units": {
+			"en": "seconds",
+			"de": "Sekunden"
+		    }
                     "label": {
                         "en": "Check Interval",
                 	"nl": "Controleer interval",
@@ -79,10 +88,16 @@
                 },
                 {
                     "id": "host_timeout",
-                    "hint": "Time to wait before reporting the device is offline",
+                    "hint": {
+			"en": "Time to wait before reporting the device is offline",
+			"de": "Dauer bis zur Offline-Meldung des Geräts"
+		    }
                     "type": "number",
                     "value": 10,
-                    "units": "seconds",
+                    "units": {
+			"en": "seconds",
+			"de": "Sekunden"
+		    }
                     "label": {
                         "en": "Check Timeout",
                 	"nl": "Controleer time-out",
@@ -91,7 +106,10 @@
                 },
                 {
                     "id": "host_unreachable_checks",
-                    "hint": "Number of unreachable failures before reporting the device is offline",
+                    "hint": {
+			"en": "Number of unreachable failures before reporting the device is offline",
+			"de": "Anzahl der Erreichbarkeits-Prüfungen, bevor das Gerät als offline gemeldet wird"
+		    }
                     "type": "number",
                     "value": 1,
                     "label": {
