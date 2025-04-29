@@ -94,7 +94,10 @@
 					},
 					"type": "number",
 					"value": 15,
-					"units": "seconds",
+					"units": {
+						"en": "seconds",
+						"de": "Sekunden"
+					}
 					"label": {
 						"en": "Check Interval",
 						"nl": "Controleer interval",
@@ -106,11 +109,14 @@
 					"hint": {
 						"en": "Time to wait before reporting the device is offline",
 						"nl": "Tijd om te wachten voordat het apparaat offline wordt gerapporteerd",
-						"de": "Zeit bis zur Offline-Meldung des Geräts"
+						"de": "Dauer bis zur Offline-Meldung des Geräts"
 					},
 					"type": "number",
 					"value": 10,
-					"units": "seconds",
+					"units": {
+						"en": "seconds",
+						"de": "Sekunden"
+					}
 					"label": {
 						"en": "Check Timeout",
 						"nl": "Controleer time-out",
